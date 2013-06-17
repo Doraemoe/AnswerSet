@@ -10,6 +10,7 @@ public class ImageManager
 	public static final int TREENODE=0,LEAFNODE=1,ROOTMETHOD=2;
 	public static final int PROJECTROOT=3,SYSTEMROOT=4,RUNTREENODE=5;
 	public static final int MAXIMAGENUM=100;
+	
 	static public void init()
 	{
 		icons=new ImageIcon[MAXIMAGENUM];

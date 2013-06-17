@@ -56,8 +56,6 @@ public class ASPFrame extends JFrame {
 
     static public SystemRoot m_data;
 
-
-//    static BerpHelpFrame hFrame;
     static ProjectFrame projectFrame;
     static OptionBox opt;
 
@@ -65,7 +63,8 @@ public class ASPFrame extends JFrame {
     static NetpCanvas activeCanvas=null;
 
     
-    static public void setActiveCanvas(NetpCanvas cvs){
+    static public void setActiveCanvas(NetpCanvas cvs)
+    {
       activeCanvas=cvs;
     }
 
@@ -73,40 +72,40 @@ public class ASPFrame extends JFrame {
     {
         return projectFrame;
     }
-//    static public BerpTreeEditCanvas getTreeEditCanvasBySysName(String sysName){
-//    	return cFrame.getTreeEditCanvasBySysName(sysName);
-//    }
-    static public void constructTitle() {
+
+    static public void constructTitle() 
+    {
         String tt="ASP testing platform";
-/*
-        if(filename==null)
-            tt+="Untiled";
-        else tt+=filename;
-        if(changed) tt+="*";
-        tt+="]";
-*/
+
         ASP.getTopFrame().setTitle(tt);
     }
+    
 	static JDesktopPane getDesktop()
-	{   return desktop;
+	{   
+		return desktop;
 	}
 	static public String getThemeName() {
 		return themeName;
 	}
+	
 	static public void setThemeName(String nm)
-	{	themeName=nm;
+	{	
+		themeName=nm;
 	}
+	
 	static public MetalTheme[] themes = {
 			new DefaultMetalTheme(),
-		};
+	};
 
 	static public MetalTheme[] getThemes()
 	{
 		return themes;
 	}
+	
 	static public SystemRoot getData(){
 		return m_data;
 	}
+	
     public ASPFrame() {
         super("AST testing Platform");
         m_data=new SystemRoot();
@@ -238,7 +237,6 @@ public class ASPFrame extends JFrame {
 		file.add(newWin);
 		file.add(open);
 		file.add(save);
-//		file.add(saveas);
 
 		if(!Config.bIsEduVersion){
 			file.addSeparator();
@@ -447,9 +445,6 @@ public class ASPFrame extends JFrame {
 		desktop.add(projectFrame, DOCLAYER);
         openFrame(projectFrame);
 
-//		hFrame = new BerpHelpFrame();
-//		desktop.add(hFrame, HELPLAYER);
-
 
 		opt = new OptionBox(this);
 	}
@@ -499,55 +494,11 @@ public class ASPFrame extends JFrame {
 		}
 		return false;
 	}
-/*	
-	private void openFile(String fn)
-	{
-		StringBuffer bf=new StringBuffer();
-		char ch[] = new char[1024];
-		int n;
-		try{
-			FileReader in = new FileReader(fn);
-			while((n=in.read(ch))!=-1) {
-				bf.append(ch,0,n);
-			}
-			in.close();
-		}
-		catch (Exception e)
-		{
-			e.printStackTrace();
-		}
-		if(parseDocument(bf.toString())){
-			filename=fn;
-		}
-	}
-*/
+
     public void close() {
         projectFrame.close();
-//        dFrame.close();
-//        fdFrame.close();
-//        m_data.clear();
         filename=null;
         changed=false;
     }
-/*
-	public static void saveRuntimeSystem(String systemName, BuildTree bt) {
-    	String filename=BerpConfig.getConfig("docRoot")+"/"+systemName+".rbe";
-
-		FileOutputStream f;
-		try {
-			f = new FileOutputStream(filename);
-
-			PrintStream pr=new PrintStream(f);
-
-			pr.print(bt.toString());
-			pr.flush();
-			pr.close();
-			f.close();
-
-		} catch (Exception e) {
-			e.printStackTrace();
-		}
-	}
-*/
 
 }

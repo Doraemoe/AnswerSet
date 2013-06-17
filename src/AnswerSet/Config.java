@@ -34,15 +34,18 @@ public class Config
     	registConfig("projectExt",ConfigData.TYPEINTEGER, projectExt);
     	readConfig();
     }
+    
     static void registConfig(String name,int type,String defval){
     	ConfigData dt=new ConfigData(name,type,defval);
     	data.add(dt);
     }
+    
     static public int getIntConfig(String s){
     	String sRet=getConfig(s);
     	int iret=Integer.parseInt(sRet);
     	return iret;
     }
+    
     static public String getConfig(String s){
     	int i,len;
     	len=data.size();
@@ -55,6 +58,7 @@ public class Config
     	}
     	return null;
     }
+    
     static public void SetConfig(String s,String v){
     	int i,len;
     	len=data.size();
@@ -135,6 +139,7 @@ public class Config
 		}
     }
 }
+
 class ConfigData
 {
 	static public final int TYPESTRING=1;
