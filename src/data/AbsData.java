@@ -28,25 +28,31 @@ abstract public class AbsData  {
 	public AbsData getChildAt(int idx){
 		return (AbsData) m_children.get(idx);
 	}
+	
 	public AbsData(){
 		m_children=new Vector<AbsData>();
 		m_parent=null;
 		m_changed=false;
 	}
+	
 	public void setChanged(){
 		m_changed=true;
 		if(m_parent!=null)
 			m_parent.setChanged();
 	}
+	
 	public void clearChanged(){
 		m_changed=false;
 	}
+	
 	public boolean isChanged(){
 		return m_changed;
 	}
+	
     abstract public String getToolTips();
  	abstract public String getDesc() ;
     abstract public String getName();
+    
     public void tryToSave(){
     	
     }

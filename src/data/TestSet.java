@@ -50,9 +50,11 @@ public class TestSet extends AbsData{
 	public int getTestResultNum(){
 		return getChildrenNum();
 	}
+	
 	public TestResult getResultData(int iIdx){
 		return (TestResult)this.getChildAt(iIdx);
 	}
+	
 	public int createNewTestResult(){
 		int size,ser;
 		size=getTestResultNum();

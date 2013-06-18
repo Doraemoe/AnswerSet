@@ -20,6 +20,7 @@ public class FastNegationTwoRuleGenerator {
 		m_IndependentRepeatLiteralNum=indrepnum;
 		initPool();
 	}
+	
 	void initPool(){
 		vPool=new Vector<Integer>();
 		vIndPool=new Vector<Integer>();
@@ -35,39 +36,44 @@ public class FastNegationTwoRuleGenerator {
 				idx=(i)*m_n+i;
 				vIndPool.add(new Integer(idx));
 			}
-			m_l-=m_IndependentRepeatLiteralNum;
+			m_l -= m_IndependentRepeatLiteralNum;
 		}
 
-		if(m_bNoRepeat||b_IndependentRepeatLiteral) {
-			for(i=m_n;i>0;--i){
+		if(m_bNoRepeat || b_IndependentRepeatLiteral) {
+			for(i=m_n; i>0; --i) {
 				idx=(i-1)*m_n+i-1; // remove repeat head and tail rules
 				vPool.remove(idx);
 				len--;
 			}
 		}
+		
 		int irand;
-		Random rdm=new Random();
-		while(len>m_l){
-			irand=rdm.nextInt(len);
+		Random rdm = new Random();
+		
+		while(len > m_l) {
+			irand = rdm.nextInt(len);
 			vPool.remove(irand);
 			len--;
 		}
+		
 		if(b_IndependentRepeatLiteral){
-			len=m_n;
-			while(len>m_IndependentRepeatLiteralNum){
-				irand=rdm.nextInt(len);
+			len = m_n;
+			while(len > m_IndependentRepeatLiteralNum){
+				irand = rdm.nextInt(len);
 				vIndPool.remove(irand);
 				len--;
 				
 			}
 		}
 	}
+	
 	String getRuleStringFromIdx(int idx){
 		int iHead,iTail;
-		iTail=idx%m_n;
-		iHead=(idx-iTail)/m_n;
-		return "p_"+iHead+ " :- not p_"+iTail+".\r\n";
+		iTail = idx % m_n;
+		iHead = (idx-iTail) / m_n;
+		return "p_" + iHead + " :- not p_" + iTail + ".\r\n";
 	}
+	
 	public String getRules(){
 		StringBuffer sbRet=new StringBuffer();
 		Integer itg;

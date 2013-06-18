@@ -147,30 +147,32 @@ public class ASPFrame extends JFrame {
 
     private Component buildToolbar() {
     	toolbar = new JToolBar();
-	getContentPane().add("North", toolbar);
+    	getContentPane().add("North", toolbar);
 
-	toolbar.add(Box.createHorizontalStrut(5));
+    	toolbar.add(Box.createHorizontalStrut(5));
         JButton btNew=createToolbarButton("images/new.gif","Create a new system.");
         toolbar.add(btNew);
-	btNew.addActionListener(new ActionListener() {
-	   public void actionPerformed(ActionEvent e) {
-	   newDocument();
-	}});
+        btNew.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		newDocument();
+        	}});
 
         JButton btOpen=createToolbarButton("images/open.gif","Open an existing system.");
         toolbar.add(btOpen);
-	btOpen.addActionListener(new ActionListener() {
-	   public void actionPerformed(ActionEvent e) {
-	   openDocument();
-       }});
+        btOpen.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		openDocument();
+        	}});
 
         JButton btSave=createToolbarButton("images/save.gif","Save all systems.");
         toolbar.add(btSave);
-	btSave.addActionListener(new ActionListener() {
-	   public void actionPerformed(ActionEvent e) {
-	   saveDocument();
-	}});
+        btSave.addActionListener(new ActionListener() {
+        	public void actionPerformed(ActionEvent e) {
+        		saveDocument();
+        	}});
+        
         toolbar.addSeparator();
+        
         JButton btNewMethod=createToolbarButton("images/newmethod.gif","Insert a new behavior node");
         toolbar.add(btNewMethod);
         btNewMethod.addActionListener(new ActionListener() {
@@ -450,7 +452,7 @@ public class ASPFrame extends JFrame {
 	}
 	public void newDocument()
 	{
-//		BerpComponentFrame.getRootNode().tryCreateNewSystem();
+		//BerpComponentFrame.getRootNode().tryCreateNewSystem();
 	}
 	public void saveAsDocument()
 	{

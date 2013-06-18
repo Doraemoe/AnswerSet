@@ -3,12 +3,12 @@ import java.util.Vector;
 
 public class ParseNode 
 {
-    Vector m_child;
+    Vector<ParseNode> m_child;
     int m_childnum;
     boolean m_parseover = false;
     String m_tag;
     String m_value;
-    Vector m_attrs;
+    Vector<XmlAttribute> m_attrs;
     ParseTree m_tree;
 
     ParseNode m_parent;
@@ -37,8 +37,8 @@ public class ParseNode
         m_tree = tree;
         m_tag="";
         m_value="";
-        m_attrs=new Vector();
-        m_child= new Vector();
+        m_attrs=new Vector<XmlAttribute>();
+        m_child= new Vector<ParseNode>();
         m_childnum=0;
     }
 
@@ -196,12 +196,13 @@ public class ParseNode
     }
     /** return the vector of all the children's tag */
 
-    public Vector getPartList(int level)
+    public Vector<String> getPartList(int level)
     {
         return getChildTags();
     }
-    public Vector getChildTags() {
-        Vector partlist = new Vector();
+    
+    public Vector<String> getChildTags() {
+        Vector<String> partlist = new Vector<String>();
         int num = m_child.size();
 
         for(int i = 0 ; i < num ; i++) 
@@ -219,9 +220,9 @@ public class ParseNode
     public String getValue() {
         return m_value;
     }
-    public Vector getListForPart(int part)
+    public Vector<String> getListForPart(int part)
     {
-        Vector childvalue = new Vector();
+        Vector<String> childvalue = new Vector<String>();
         if (part == 0)
         {
             int num = m_child.size();
@@ -252,12 +253,12 @@ public class ParseNode
 
 	public ParseNode findFirstChild(String tag)
 	{
-		Vector v=findChild(tag);
+		Vector<ParseNode> v=findChild(tag);
 		if(v.size()==0) return null;
 		return (ParseNode) v.elementAt(0);
 	}
-    public Vector findChild(String tag) {
-        Vector ret=new Vector();
+    public Vector<ParseNode> findChild(String tag) {
+        Vector<ParseNode> ret=new Vector<ParseNode>();
         for(int i=0;i<m_childnum;++i) {
             if(getChild(i).getTag().equals(tag)) {
                 ret.addElement(getChild(i));
@@ -288,9 +289,9 @@ public class ParseNode
     }
     /* return the value of the first child match the tag */
     public String getChildValue(String tag) {
-        Vector chds=findChild(tag);
+        Vector<ParseNode> chds=findChild(tag);
         if(chds.size()==0) return "";
-        ParseNode chd=(ParseNode) chds.elementAt(0);
+        ParseNode chd = chds.elementAt(0);
         return chd.getValue();
     }
     

@@ -12,8 +12,8 @@ public class BuildNode
 {
     BuildNode root;       
     BuildNode m_parent;           // Parent node of this current node 
-    Vector m_child;
-    Vector m_attrs;
+    Vector<BuildNode> m_child;
+    Vector<XmlAttribute> m_attrs;
     int m_childnum;
     public String m_tag;
     String m_value;
@@ -28,36 +28,34 @@ public class BuildNode
      * @param Attributes
      * @param Comment
      */
-    public BuildNode (String tag)
-    {
-	this(tag,"",new Vector(),"");
+    public BuildNode (String tag) {
+    	this(tag,"",new Vector<XmlAttribute>(),"");
     }
-
-    public void setAttribute(String name,String val) {
-        XmlAttribute att=new XmlAttribute(name,val);
-        m_attrs.add(att);
+    
+    public BuildNode (String tag, String value) {
+    	this(tag,value,new Vector<XmlAttribute>(),"");
     }
-    public BuildNode (String tag, String value)
-    {
-	this(tag,value,new Vector(),"");
+    
+    public BuildNode (String tag, String value, Vector<XmlAttribute> attrs) {
+    	this(tag, value, attrs, "");
     }
-    public BuildNode (String tag, String value, Vector attrs)
-    {
-	this(tag,value,attrs,"");
-    }
-    public BuildNode (String tag, String value, Vector attrs, String comment)
-    {
+    
+    public BuildNode (String tag, String value, Vector<XmlAttribute> attrs, String comment) {
         m_tag = tag;
         m_value = value;
-        m_child = new Vector();
+        m_child = new Vector<BuildNode>();
         m_attrs = attrs;
         m_comment = comment;
         m_childnum = 0; 
-	m_parent=null;
-	root=null;
+        m_parent=null;
+        root=null;
     }
 
 
+    public void setAttribute(String name,String val) {
+        XmlAttribute att=new XmlAttribute(name, val);
+        m_attrs.add(att);
+    }
     /**
      * @param child pointer ? 
      */

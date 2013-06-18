@@ -1,10 +1,8 @@
 package AnswerSet;
 
-import java.util.Vector;
 
 import org.apfloat.Apfloat;
 import org.apfloat.ApfloatMath;
-import org.jscience.mathematics.number.Float64;
 
 public class LinerTest {
 
@@ -48,20 +46,19 @@ public class LinerTest {
 	
 	Apfloat calCulateNm(int n, int m){
 		Apfloat an,am,anm;
-		double tmp,tmpm;
 		an=calFactorya(n);
-		tmp=an.doubleValue();
+		an.doubleValue();
 		am=calFactorya(m);
-		tmp=am.doubleValue();
+		am.doubleValue();
 
 		anm=calFactorya(n-m);
-		tmpm=anm.doubleValue();
+		anm.doubleValue();
 	
 		an=an.divide(am);
-		tmp=an.doubleValue();
+		an.doubleValue();
 
 		an=an.divide(anm);
-		tmp=an.doubleValue();
+		an.doubleValue();
 		return an;
 		
 	}
@@ -105,9 +102,8 @@ public class LinerTest {
 		d=d.add(new Apfloat(1));
 		Apfloat res;
 
-		double t1,t2;
-		t1=d.doubleValue();
-		t2=x.doubleValue();
+		d.doubleValue();
+		x.doubleValue();
 		res=ApfloatMath.pow(d,x);
 		return res.doubleValue();
 		

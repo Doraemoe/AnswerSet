@@ -27,10 +27,10 @@ public class ASPRule {
 		if(!bUsePowerLaw)return; // should not be here
 		pLaw.confirmGet(iHead);
 
-		for(int i=0; i<iPositiveNum;++i) {
+		for(int i=0; i<iPositiveNum; ++i) {
 			pLaw.confirmGet(iPositiveGroup[i]);
 		}
-		for(int i=0; i<iNegtiveNum;++i) {
+		for(int i=0; i<iNegtiveNum; ++i) {
 			pLaw.confirmGet(iNegtiveGroup[i]);
 		}
 	}
@@ -59,7 +59,7 @@ public class ASPRule {
 				bNextInt=pLaw.getNextValue();
 			else
 				bNextInt=rdm.nextInt(n);
-			if(tryInsertNum(bSelectPositive,bNextInt,n, bNoRepeat)) iRemainNum--;
+			if(tryInsertNum(bSelectPositive, bNextInt, n, bNoRepeat)) iRemainNum--;
 		}
 	}
 	private boolean tryInsertNum(boolean pIsPositive, int s, int n, boolean bNoRepeat){
@@ -104,6 +104,7 @@ public class ASPRule {
 		iNegtiveNum++;
 		return true;
 	}
+	
 	public String toString(){
 		String sRet;
 		sRet = getLiterialString(iHead, true)+" :- ";
