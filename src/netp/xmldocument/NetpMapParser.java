@@ -7,7 +7,7 @@ import netp.*;
 public class NetpMapParser 
 {
     private String m_cmd;
-    private Hashtable m_pars;
+    private Hashtable<String, String> m_pars;
     private int m_mapnum = 0;
 
     private static String getParKey(String par)
@@ -38,7 +38,7 @@ public class NetpMapParser
     {
         if("MAP".equals(p_parser.getDocType()))
         {
-            m_pars = new Hashtable();
+            m_pars = new Hashtable<String, String>();
 
             m_cmd=p_parser.getBodyValue("code");
             String par_num_s=p_parser.getBodyValue("map_num");
@@ -86,7 +86,7 @@ public class NetpMapParser
 
         return val;
     }
-    public Enumeration getMapList()
+    public Enumeration<String> getMapList()
     {
         return m_pars.keys();
     }

@@ -128,7 +128,7 @@ public class ParseTree
 	{
         return m_root.getChildNum();
 	}
-	public Vector getChildTags()
+	public Vector<String> getChildTags()
 	{
         return m_root.getChildTags();
 	}
@@ -139,9 +139,9 @@ public class ParseTree
      * @param Level
      * @return list
      */
-    public Vector getPartList(int level)
+    public Vector<String> getPartList(int level)
     {
-        Vector partlist = new Vector();
+        Vector<String> partlist = new Vector<String>();
         partlist = m_root.getPartList(level);
         return partlist;
     }
@@ -152,9 +152,9 @@ public class ParseTree
      * @param part
      * @return value list
      */
-    public Vector getListForPart(int part)
+    public Vector<String> getListForPart(int part)
     {
-        Vector vallist = new Vector();
+        Vector<String> vallist = new Vector<String>();
         vallist = m_root.getListForPart(part);
         return vallist;
     }

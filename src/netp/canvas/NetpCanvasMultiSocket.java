@@ -15,13 +15,13 @@ public class NetpCanvasMultiSocket extends NetpCanvasSocket
     protected int m_max_plug_num=-1; // -1 means no limit
     protected int m_plug_num=0; // how many plugs have pluged in this socket
 
-    protected HashSet m_plugs;
+    protected HashSet<plug> m_plugs;
 
 
     public NetpCanvasMultiSocket(String subid,NetpCanvasObject par)
     {
         super(subid,par);
-        m_plugs=new HashSet();
+        m_plugs=new HashSet<plug>();
     }
 
 
@@ -72,7 +72,7 @@ public class NetpCanvasMultiSocket extends NetpCanvasSocket
     }
     protected void forcemoveOthers() {
         plug p;
-        for(Iterator e=m_plugs.iterator(); e.hasNext();)
+        for(Iterator<plug> e=m_plugs.iterator(); e.hasNext();)
         {
             p=(plug) e.next();
             m_par.sendSubObjCommand(p.m_id,p.m_sub_id,"forcemove");
@@ -90,7 +90,7 @@ public class NetpCanvasMultiSocket extends NetpCanvasSocket
     protected void disconnectMe()
     {
         plug p;
-        for(Iterator e=m_plugs.iterator(); e.hasNext();)
+        for(Iterator<plug> e=m_plugs.iterator(); e.hasNext();)
         {
             p=(plug) e.next();
             m_par.sendSubObjCommand(p.m_id,p.m_sub_id,"breakconnection");
@@ -101,7 +101,7 @@ public class NetpCanvasMultiSocket extends NetpCanvasSocket
     {
         m_status=NCS_EMPTY;
         m_plug_num=0;
-        m_plugs=new HashSet();
+        m_plugs=new HashSet<plug>();
     }
 
 
@@ -129,15 +129,15 @@ public class NetpCanvasMultiSocket extends NetpCanvasSocket
     public String toString(){
         String s;
         s=super.toString();
-        s=s+m_par.intToString(m_sub_id+"_num",m_plug_num);
+        s=s+NetpCanvasObject.intToString(m_sub_id+"_num",m_plug_num);
 
         plug p;
         int i=0;
-        for(Iterator e=m_plugs.iterator(); e.hasNext();i++)
+        for(Iterator<plug> e=m_plugs.iterator(); e.hasNext();i++)
         {
             p=(plug) e.next();
-            s=s+m_par.stringToString(m_sub_id+"_opp_id_"+i,p.m_id);
-            s=s+m_par.stringToString(m_sub_id+"_opp_sub_id_"+i,p.m_sub_id);
+            s=s+NetpCanvasObject.stringToString(m_sub_id+"_opp_id_"+i,p.m_id);
+            s=s+NetpCanvasObject.stringToString(m_sub_id+"_opp_sub_id_"+i,p.m_sub_id);
 
         }
 
@@ -157,10 +157,10 @@ public class NetpCanvasMultiSocket extends NetpCanvasSocket
             m_plugs.add(p);
         }
     }
-    public Vector getPlugIds() {
-        Vector ret=new Vector();
+    public Vector<String> getPlugIds() {
+        Vector<String> ret=new Vector<String>();
         plug p;
-        for(Iterator e=m_plugs.iterator(); e.hasNext();)
+        for(Iterator<plug> e=m_plugs.iterator(); e.hasNext();)
         {
             p=(plug) e.next();
             ret.addElement(p.m_id);

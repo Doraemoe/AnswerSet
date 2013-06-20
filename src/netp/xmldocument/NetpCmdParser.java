@@ -7,7 +7,7 @@ import netp.*;
 public class NetpCmdParser 
 {
     private String m_cmd;
-    private Hashtable m_pars;
+    private Hashtable<String, String> m_pars;
     private int m_parnum = 0;
 
     private static String getParKey(String par)
@@ -38,7 +38,7 @@ public class NetpCmdParser
     {
         if("CMD".equals(p_parser.getDocType()))
         {
-            m_pars = new Hashtable();
+            m_pars = new Hashtable<String, String>();
             m_cmd=p_parser.getBodyValue("cmd");
             String par_num_s=p_parser.getBodyValue("par_num");
             m_parnum=NetpGeneral.stringToInt(par_num_s);

@@ -2,6 +2,7 @@ package netp.canvas;
 
 import java.util.*;
 import java.awt.*;
+
 import javax.swing.*;
 import java.awt.event.*;
 import netp.*;
@@ -10,7 +11,7 @@ public class NetpPolyLine extends NetpLine
 {
     final static int MIDPOINTDRAG=5;
     protected int m_dragp;
-    protected Vector m_interpoints;
+    protected Vector<Point> m_interpoints;
     protected int m_inter_num;
 
     JMenuItem m_adp,m_dep,m_adj;
@@ -24,7 +25,7 @@ public class NetpPolyLine extends NetpLine
     public void setInitPoint(Point p)
     {
         super.setInitPoint(p);
-        m_interpoints=new Vector();
+        m_interpoints=new Vector<Point>();
         m_inter_num=0;
     }
 
@@ -67,7 +68,7 @@ public class NetpPolyLine extends NetpLine
         boundryCheck();
     }
     public void removeAllMidPoint() {
-        m_interpoints=new Vector();
+        m_interpoints=new Vector<Point>();
         m_inter_num=0;
     }
     public void draw(Graphics g)
@@ -279,7 +280,7 @@ public class NetpPolyLine extends NetpLine
         Point p;
         i_num=NetpGeneral.stringToInt(p_num);
 
-        m_interpoints = new Vector();
+        m_interpoints = new Vector<Point>();
         m_inter_num=0;
         for(i=0;i<i_num;++i)
         {
@@ -385,8 +386,8 @@ public class NetpPolyLine extends NetpLine
         }
         return y0;
     }
-    public Vector GetAbsShape() {
-        Vector v=new Vector();
+    public Vector<AbsLine> GetAbsShape() {
+        Vector<AbsLine> v=new Vector<AbsLine>();
         int i,s=m_inter_num+1;
 
         Point pa,pb;

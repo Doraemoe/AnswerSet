@@ -20,6 +20,10 @@ import java.text.DecimalFormat;
  */
 
 public class CurvPane extends JPanel implements MouseMotionListener, MouseListener{
+	/**
+	 * 
+	 */
+	private static final long serialVersionUID = -8973160348959483808L;
 	LineCurve cv;
 	LineCurve cv2;
 	

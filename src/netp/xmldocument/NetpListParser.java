@@ -7,14 +7,14 @@ import netp.*;
 public class NetpListParser 
 {
     private String m_cmd;
-    private Vector m_pars;
+    private Vector<String> m_pars;
     private int m_listnum = 0;
 
     public NetpListParser(NetpParser p_parser) 
     {
         if("LIST".equals(p_parser.getDocType()))
         {
-            m_pars = new Vector();
+            m_pars = new Vector<String>();
             m_cmd=p_parser.getBodyValue("code");
             String par_num_s=p_parser.getBodyValue("list_num");
             m_listnum=NetpGeneral.stringToInt(par_num_s);

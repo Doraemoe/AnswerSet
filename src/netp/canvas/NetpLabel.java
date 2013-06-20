@@ -219,8 +219,8 @@ public class NetpLabel extends NetpCanvasObject
         FontMetrics fm=m_par.getFontMetrics(m_font);
         return p0.y+fm.getDescent();
     }
-    public Vector GetAbsShape() {
-        Vector v = new Vector();
+    public Vector<AbsString> GetAbsShape() {
+        Vector<AbsString> v = new Vector<AbsString>();
         v.add(new AbsString(p0.x,p0.y,m_label));
         return v;
     }

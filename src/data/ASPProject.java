@@ -142,9 +142,8 @@ public class ASPProject extends AbsData{
 		Runtime r=Runtime.getRuntime();
 		Process p;
 		
-		long tmStart,tmEnd,tmUsage;
 		long tmStarta,tmEnda,tmUsagea;
-		tmStart=System.currentTimeMillis();
+		System.currentTimeMillis();
 		for(i=0;i<programnum;++i){
 			proFile=getTestDataProgramFile(dser,i);
 			resFile=getTestResultFile(tser,i);
@@ -167,10 +166,7 @@ public class ASPProject extends AbsData{
 			}
 		}
 		
-		tmEnd=System.currentTimeMillis();
-		tmUsage=tmEnd-tmStart;
-		
-
+		System.currentTimeMillis();
 		// perform the statistic analysis
 		BasicResultStatic brs=new BasicResultStatic();
 		brs.setSolver(strSolver);
@@ -309,7 +305,7 @@ public class ASPProject extends AbsData{
 //    	if(m_cvs==null) return;
     	
     	checkASSDBeforeSave();
-    	String filename=getFileName();
+    	String filename = getFileName();
 
 		FileOutputStream f;
 		try {

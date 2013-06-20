@@ -55,7 +55,7 @@ public class NetpCanvasPlug extends NetpCanvasSocket
 
     protected void disconnectMe()
     {
-        Hashtable tb=new Hashtable();
+        Hashtable<String, String> tb=new Hashtable<String, String>();
         tb.put("obj_id",m_par.getId());
         tb.put("sub_obj_id",m_sub_id);
 

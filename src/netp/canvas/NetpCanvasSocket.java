@@ -111,8 +111,8 @@ public class NetpCanvasSocket extends NetpCanvasSubObject
     public String toString(){
         String s;
         s=super.toString();
-        s=s+m_par.stringToString(m_sub_id+"_opp_id",m_plug_obj_id);
-        s=s+m_par.stringToString(m_sub_id+"_opp_sub_id",m_plug_obj_sub_id);
+        s=s+NetpCanvasObject.stringToString(m_sub_id+"_opp_id",m_plug_obj_id);
+        s=s+NetpCanvasObject.stringToString(m_sub_id+"_opp_sub_id",m_plug_obj_sub_id);
         return s;
     }
     public void setInit(NetpCanvasObjectParser ps)

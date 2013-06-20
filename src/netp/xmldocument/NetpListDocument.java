@@ -5,13 +5,13 @@ import netp.*;
 public class NetpListDocument extends NetpDocument 
 {
     private String m_cmd;
-    private Vector m_pars;
+    private Vector<String> m_pars;
 
     public NetpListDocument(String t_dir) 
     {
         super("LIST","Res",t_dir);
         m_cmd="";
-        m_pars=new Vector();
+        m_pars=new Vector<String>();
     }
    
     protected void pCreateBody() 

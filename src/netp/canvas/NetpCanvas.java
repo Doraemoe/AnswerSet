@@ -295,7 +295,7 @@ public class NetpCanvas extends JPanel implements ActionListener
     {
         m_menu.show(this,p.x,p.y);
     }
-    public Vector findRectSelectObject(int x,int y,int w,int h){
+    public Vector<NetpCanvasObject> findRectSelectObject(int x,int y,int w,int h){
         return m_objs.findRectSelectObject(x,y,w,h);
     }
 	public NetpCanvasObject findTipObject(Point p_point) {
@@ -305,10 +305,10 @@ public class NetpCanvas extends JPanel implements ActionListener
     {
         return m_objs.findClickedObject( p_point);
     }
-    public Vector findGroupClickedObject(Point p_point) {
+    public Vector<NetpCanvasObject> findGroupClickedObject(Point p_point) {
         return m_objs.findGroupClickedObject( p_point);
     }
-    public Vector findGroupSelectObject() {
+    public Vector<NetpCanvasObject> findGroupSelectObject() {
         return m_objs.findGroupSelectObject();
     }
 
@@ -359,7 +359,7 @@ public class NetpCanvas extends JPanel implements ActionListener
         String o_id,p_para;
         NetpCanvasObjectParser p_objp;
         String p_type,p_classname;
-        for (Enumeration e = mapParser.getMapList() ; e.hasMoreElements() ;)
+        for (Enumeration<String> e = mapParser.getMapList() ; e.hasMoreElements() ;)
         {
             o_id=(String) e.nextElement();
 
@@ -393,7 +393,7 @@ public class NetpCanvas extends JPanel implements ActionListener
             ob.sendSubObjCommand(p_sub_id,p_cmd);
     }
 
-    public void sendSubObjCommand(String p_id,String p_sub_id,String p_cmd,Hashtable p_paras)
+    public void sendSubObjCommand(String p_id,String p_sub_id,String p_cmd,Hashtable<String, String> p_paras)
     {
         NetpCanvasObject ob=findObjectById(p_id);
         if(ob!=null)
@@ -402,14 +402,14 @@ public class NetpCanvas extends JPanel implements ActionListener
 
     public void plugIn(String id1,String sub_id1,String id2,String sub_id2)
     {
-        Hashtable ht;
+        Hashtable<String, String> ht;
 
-        ht=new Hashtable();
+        ht=new Hashtable<String, String>();
         ht.put("obj_id",id2);
         ht.put("sub_obj_id",sub_id2);
         sendSubObjCommand(id1,sub_id1,"plugin",ht);
 
-        ht=new Hashtable();
+        ht=new Hashtable<String, String>();
         ht.put("obj_id",id1);
         ht.put("sub_obj_id",sub_id1);
         sendSubObjCommand(id2,sub_id2,"plugin",ht);
@@ -425,11 +425,11 @@ public class NetpCanvas extends JPanel implements ActionListener
         if(p_ob==null) return null;
         return p_ob.findSubObjectById(p_sub_id);
     }
-    public  void setAbsArrow(Vector v, Point pa, Point pb, int len,int type) {
+    public  void setAbsArrow(Vector<AbsShape> v, Point pa, Point pb, int len,int type) {
         setAbsArrow(v,pa,pb,len,type,Color.black);
     }
 
-    public  void setAbsArrow(Vector v, Point pa, Point pb, int len,int type,Color col)
+    public  void setAbsArrow(Vector<AbsShape> v, Point pa, Point pb, int len,int type,Color col)
     {
         AbsLine al;
         double sin15=0.2588,cos15=0.9659;
@@ -579,7 +579,7 @@ public class NetpCanvas extends JPanel implements ActionListener
     public int findMaxX() {
         int x0=0,x;
         NetpCanvasObject p_obj;
-        for (Enumeration e = m_objs.elements() ; e.hasMoreElements() ;)
+        for (Enumeration<NetpCanvasObject> e = m_objs.elements() ; e.hasMoreElements() ;)
         {
             p_obj=(NetpCanvasObject) e.nextElement();
             x=p_obj.findMaxX();
@@ -590,7 +590,7 @@ public class NetpCanvas extends JPanel implements ActionListener
     public int findMaxY() {
         int x0=0,x;
         NetpCanvasObject p_obj;
-        for (Enumeration e = m_objs.elements() ; e.hasMoreElements() ;)
+        for (Enumeration<NetpCanvasObject> e = m_objs.elements() ; e.hasMoreElements() ;)
         {
             p_obj=(NetpCanvasObject) e.nextElement();
             x=p_obj.findMaxY();
@@ -611,9 +611,9 @@ public class NetpCanvas extends JPanel implements ActionListener
         NetpCanvasObject p_obj;
         Vector v = new Vector();
         Vector v2;
-        for (Enumeration e = m_objs.elements() ; e.hasMoreElements() ;)
+        for (Enumeration<NetpCanvasObject> e = m_objs.elements() ; e.hasMoreElements() ;)
         {
-            p_obj=(NetpCanvasObject) e.nextElement();
+            p_obj = e.nextElement();
             v2=p_obj.GetAbsShape();
             if(v2==null) continue;
             if(p_obj.preferDrawFirst())

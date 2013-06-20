@@ -34,7 +34,7 @@ abstract public class NetpCanvasObject implements ActionListener, ColorChangable
     final static public int MINDIS=4;
 
 
-    protected Vector m_sub_obj_list=null;
+    protected Vector<String> m_sub_obj_list=null;
 
     public void setDeleable(boolean b) {
         if(m_menu==null) {
@@ -213,7 +213,7 @@ abstract public class NetpCanvasObject implements ActionListener, ColorChangable
         return m_par.getToolkit();
     }
 
-    protected Vector getSubObjectList()
+    protected Vector<String> getSubObjectList()
     {
         return m_sub_obj_list;
     }
@@ -238,7 +238,7 @@ abstract public class NetpCanvasObject implements ActionListener, ColorChangable
 
     public void sendSubObjCommand(String cmd)
     {
-        Vector obs=getSubObjectList();
+        Vector<String> obs=getSubObjectList();
         if(obs==null) return ;
         int num=obs.size();
         int i;
@@ -252,14 +252,14 @@ abstract public class NetpCanvasObject implements ActionListener, ColorChangable
     }
     protected NetpCanvasSubObject findSubObjectByPosition(Point p)
     {
-        Vector obs=getSubObjectList();
+        Vector<String> obs=getSubObjectList();
         if(obs==null) return null;
         int num=obs.size();
         int i;
         Point pp;
         for(i=0;i<num;++i)
         {
-            String p_id=(String) obs.elementAt(i);
+            String p_id = obs.elementAt(i);
             pp = getSubObjPosition(p_id);
             if(NetpCanvasGeom.ptToPt(p,pp)<MINDIS) {
 
@@ -271,13 +271,13 @@ abstract public class NetpCanvasObject implements ActionListener, ColorChangable
     protected String subObjectToString()
     {
         StringBuffer bf=new StringBuffer();
-        Vector obs=getSubObjectList();
+        Vector<String> obs=getSubObjectList();
         int num=obs.size();
         int i;
         NetpCanvasSubObject ob;
         for(i=0;i<num;++i)
         {
-            String p_id=(String) obs.elementAt(i);
+            String p_id = obs.elementAt(i);
 
             ob=findSubObjectById(p_id);
             if(ob!=null) bf.append(ob.toString());
@@ -287,13 +287,13 @@ abstract public class NetpCanvasObject implements ActionListener, ColorChangable
 
     protected void subObjectSetInit(NetpCanvasObjectParser ps)
     {
-        Vector obs=getSubObjectList();
+        Vector<String> obs=getSubObjectList();
         int num=obs.size();
         int i;
         NetpCanvasSubObject ob;
         for(i=0;i<num;++i)
         {
-            String p_id=(String) obs.elementAt(i);
+            String p_id = obs.elementAt(i);
 
             ob=findSubObjectById(p_id);
             if(ob!=null) ob.setInit(ps);
@@ -302,13 +302,13 @@ abstract public class NetpCanvasObject implements ActionListener, ColorChangable
 
     protected void drawSubObject(Graphics g)
     {
-        Vector obs=getSubObjectList();
+        Vector<String> obs=getSubObjectList();
         int num=obs.size();
         int i;
         NetpCanvasSubObject ob;
         for(i=0;i<num;++i)
         {
-            String p_id=(String) obs.elementAt(i);
+            String p_id = obs.elementAt(i);
 
             ob=findSubObjectById(p_id);
             if(ob!=null) ob.draw(g);
@@ -432,7 +432,7 @@ abstract public class NetpCanvasObject implements ActionListener, ColorChangable
         m_par.sendSubObjCommand(p_id,p_sub_id,p_cmd);
     }
 
-    public void sendSubObjCommand(String p_id,String p_sub_id,String p_cmd,Hashtable p_paras)
+    public void sendSubObjCommand(String p_id,String p_sub_id,String p_cmd,Hashtable<String, String> p_paras)
     {
         m_par.sendSubObjCommand(p_id,p_sub_id,p_cmd,p_paras);
     }
@@ -448,7 +448,7 @@ abstract public class NetpCanvasObject implements ActionListener, ColorChangable
     {
         NetpCanvasSubObject ob=findSubObjectById(p_sub_id);
         if(ob!=null)
-            ob.receiveCmd(p_cmd,p_paras);
+            ob.receiveCmd(p_cmd, p_paras);
     }
     public NetpCanvasSubObject findSubObjectById(String p_sub_id)
     {

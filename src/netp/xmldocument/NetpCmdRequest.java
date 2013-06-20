@@ -5,13 +5,13 @@ import netp.*;
 public class NetpCmdRequest extends NetpDocument 
 {
     private String m_cmd;
-    private Hashtable m_pars;
+    private Hashtable<String, String> m_pars;
 
     public NetpCmdRequest(String t_dir) 
     {
         super("CMD","Req",t_dir);
         m_cmd="";
-        m_pars=new Hashtable();
+        m_pars=new Hashtable<String, String>();
     }
    
     protected void pCreateBody() 
@@ -23,7 +23,7 @@ public class NetpCmdRequest extends NetpDocument
         String k,v,par,tag;
 
 
-       for(Enumeration e= m_pars.keys(); e.hasMoreElements();)
+       for(Enumeration<String> e= m_pars.keys(); e.hasMoreElements();)
        {
             k=(String) e.nextElement();
             v=(String) m_pars.get(k);

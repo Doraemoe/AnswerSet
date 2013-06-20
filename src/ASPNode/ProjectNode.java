@@ -393,6 +393,7 @@ public class ProjectNode extends DocNode
 		return null;
 		
 	}
+	
 	public DataSetNode getDataSetNode(){
 		int i,size;
 		size=getChildCount();
@@ -404,6 +405,7 @@ public class ProjectNode extends DocNode
 		}
 		return null;
 	}
+	
 	int createNewTextData(CreateNewDataDialog dlg, boolean batchMode){
 		DataSet ds=getDataSet();
 

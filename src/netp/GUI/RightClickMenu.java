@@ -16,7 +16,7 @@ public class RightClickMenu extends Window implements MouseMotionListener,MouseL
     static public Color bgColor; // configured by the configure file
 
     RightClickMenuEnabled m_parent;
-    Vector m_items;
+    Vector<RightClickMenuItem> m_items;
     int m_item_num, appWidth = 0, appHeight = 0;
         
     boolean itemChanged = true,created=false;    
@@ -97,7 +97,7 @@ public class RightClickMenu extends Window implements MouseMotionListener,MouseL
     {
         super(f);
         m_parent = p;
-        m_items = new Vector();
+        m_items = new Vector<RightClickMenuItem>();
         setBackground(bgColor);
         addMouseMotionListener(this);
         addMouseListener(this);

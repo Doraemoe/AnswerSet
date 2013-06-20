@@ -18,7 +18,7 @@ public class BuildTree
     String m_value;
     String m_str;
     int m_strpoint;
-    Vector m_attrs;
+    Vector<XmlAttribute> m_attrs;
 
     /**
      * Building Code
@@ -30,9 +30,9 @@ public class BuildTree
      */
     public BuildTree(String tag)
     {
-        this(tag, new Vector(), "", "");
+        this(tag, new Vector<XmlAttribute>(), "", "");
     }
-    public BuildTree (String tag, Vector attrs, String comment, String value)
+    public BuildTree (String tag, Vector<XmlAttribute> attrs, String comment, String value)
     {
         m_tag = tag;
         m_attrs = attrs;

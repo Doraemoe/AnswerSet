@@ -90,14 +90,14 @@ public class ParseNode
         parse();
     }
 
-    public Vector locateAttrs (String tag)
+    public Vector<XmlAttribute> locateAttrs (String tag)
     {
-        Vector attrs;
+        Vector<XmlAttribute> attrs;
         int offset;
         int pos, pos1, pos2;
         String attrsStr;
 
-        attrs = new Vector();
+        attrs = new Vector<XmlAttribute>();
         pos = tag.indexOf(" ", 0);
 
         if (pos == -1)

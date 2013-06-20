@@ -33,7 +33,7 @@ public class NetpLine extends NetpCanvasObject
         m_head_plug=new NetpCanvasPlug("head_plug",this);
         m_head_plug.setSubObjType(p_plug_type);
         m_head_plug.setSocketType(p_socket_type);
-        if(m_sub_obj_list==null) m_sub_obj_list=new Vector();
+        if(m_sub_obj_list==null) m_sub_obj_list=new Vector<String>();
         m_sub_obj_list.addElement("head_plug");
     }
 
@@ -42,7 +42,7 @@ public class NetpLine extends NetpCanvasObject
         m_tail_plug=new NetpCanvasPlug("tail_plug",this);
         m_tail_plug.setSubObjType(p_plug_type);
         m_tail_plug.setSocketType(p_socket_type);
-        if(m_sub_obj_list==null) m_sub_obj_list=new Vector();
+        if(m_sub_obj_list==null) m_sub_obj_list=new Vector<String>();
         m_sub_obj_list.addElement("tail_plug");
     }
 
@@ -254,12 +254,12 @@ public class NetpLine extends NetpCanvasObject
         if(p2.y>p0.y) return p2.y;
         return p0.y;
     }
-    public Vector GetAbsShape() {
+    public Vector<AbsLine> GetAbsShape() {
         AbsLine al=new AbsLine();
         al.setPosition(p0.x,p0.y);
         al.setColor(getColor());
         al.setSize(p2.x-p0.x,p2.y-p0.y);
-        Vector v = new Vector();
+        Vector<AbsLine> v = new Vector<AbsLine>();
         v.add(al);
         return v;
     }

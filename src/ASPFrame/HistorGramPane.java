@@ -12,7 +12,11 @@ import java.awt.*;
  */
 
 public class HistorGramPane extends JPanel {
-  private int iRange,iSet; // iRange is the x axis, iSet how many sample merge together, iMaxX the max value
+  /**
+	 * 
+	 */
+	private static final long serialVersionUID = -6075802992878586275L;
+private int iRange,iSet; // iRange is the x axis, iSet how many sample merge together, iMaxX the max value
   private double iData[];
   private int iDataNum,iMaxY;
   Color cBarColor;
@@ -215,8 +219,7 @@ public class HistorGramPane extends JPanel {
   }
  
   public void calculateCPLE(){
-  	int i,num,imax=0;
-	if(!bCalCPLE) return;
+  	if(!bCalCPLE) return;
 /*
   	iOff=0;
   	num=iData.length;
@@ -290,11 +293,10 @@ public class HistorGramPane extends JPanel {
 	Stroke oldStk;
 	oldStk=g2d.getStroke();
 	g2d.setStroke(getWideStroke());
-	int i,idx,j,iVal;
+	int i;
 	int iStep=iRange;
 	int iFactorial=1;
 	double dVal;
-	idx=0;
 	int ixb,ixe,iye;
 	ixb=ix0+1;
 	for(i=0;i<iStep;++i) {
@@ -321,12 +323,11 @@ public class HistorGramPane extends JPanel {
 	Stroke oldStk;
 	oldStk=g2d.getStroke();
 	g2d.setStroke(getWideStroke());
-	int i,idx,j,iVal;
+	int i;
 	int iStep=iRange;
 	
 
 	double dVal;
-	idx=0;
 	int ixb,ixe,iye;
 	int c;
 	ixb=ix0+1;

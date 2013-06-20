@@ -16,9 +16,9 @@ public class CreateNewDataDialog
 
     JPanel jp;
 
-    JComboBox cb_class = new JComboBox();  // k
+    JComboBox<String> cb_class = new JComboBox<String>();  // k
     JTextField tf_atoms = new JTextField(5);  // n
-    JComboBox cb_literals = new JComboBox();  // k
+    JComboBox<String> cb_literals = new JComboBox<String>();  // k
 
     
     
@@ -144,7 +144,7 @@ public class CreateNewDataDialog
     public boolean start() 
     {
        String[] options = {
-		    "Ok",
+		    "OK",
 		    "Cancel"
 		};
         int result = JOptionPane.showOptionDialog(
@@ -196,6 +196,7 @@ public class CreateNewDataDialog
     public boolean isBatchMode(){
     	return b_batchMode;
     }
+    
     public void setBatchIdx(int idx){
     	
     	if(b_linerMode){

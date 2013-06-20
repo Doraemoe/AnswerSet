@@ -4,10 +4,10 @@ import java.util.Vector;
 
 public class AbsPolygon extends AbsShape
 {
-    public Vector v;
+    public Vector<Point> v;
     public AbsPolygon() {
         super();
-        v=new Vector();
+        v=new Vector<Point>();
     }
     public void upsideDown(int y0) // 
     {

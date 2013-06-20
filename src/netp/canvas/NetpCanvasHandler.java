@@ -71,7 +71,7 @@ public class NetpCanvasHandler implements MouseListener,
     {
         if(inDragMode)
         {
-            Vector v=m_par.findGroupSelectObject();
+            Vector<NetpCanvasObject> v=m_par.findGroupSelectObject();
             if((v==null)||(v.size()==0)) {
                 NetpCanvasObject p_ob;
                 p_ob=m_par.findSelectObject();
@@ -122,7 +122,7 @@ public class NetpCanvasHandler implements MouseListener,
         if((e.getModifiers() & MouseEvent.BUTTON3_MASK) == MouseEvent.BUTTON3_MASK) 
         {
 
-            Vector v=m_par.findGroupSelectObject();
+            Vector<NetpCanvasObject> v=m_par.findGroupSelectObject();
             NetpCanvasObject p_ob;
 
             if((v!=null)&&(v.size()>1)) {
@@ -157,7 +157,7 @@ public class NetpCanvasHandler implements MouseListener,
     public void mousePressed(MouseEvent e)
     {   
         m_lastp=e.getPoint();
-        Vector v=m_par.findGroupSelectObject();
+        Vector<NetpCanvasObject> v=m_par.findGroupSelectObject();
         NetpCanvasObject p_ob;
 
         if((v!=null)&&(v.size()>1)) {
@@ -236,7 +236,7 @@ public class NetpCanvasHandler implements MouseListener,
         int c=e.getKeyCode();
         NetpCanvasObject p_ob;
         if(c==KeyEvent.VK_DELETE) {
-            Vector v=m_par.findGroupSelectObject();
+            Vector<NetpCanvasObject> v=m_par.findGroupSelectObject();
             if((v==null)||(v.size()==0)) {
                 p_ob=m_par.findSelectObject();
                 if(p_ob!=null)

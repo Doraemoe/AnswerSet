@@ -202,7 +202,7 @@ public class NetpRect extends NetpLine
         m_doubleLine=ps.getBooleanValue("hasDoubleLine",false);
         super.setInit(ps);
     }
-    protected Vector getRectAbsShape() {
+    protected Vector<AbsLine> getRectAbsShape() {
         AbsRect al=new AbsRect();
         al.setPosition(p0.x,p0.y);
         al.setColor(getColor());
@@ -212,7 +212,7 @@ public class NetpRect extends NetpLine
             al.setFillColor(getBGColor());
         }
 
-        Vector v = new Vector();
+        Vector<AbsLine> v = new Vector<AbsLine>();
         v.add(al);
 
         if(isDoubleLine()) {
@@ -241,7 +241,7 @@ public class NetpRect extends NetpLine
 
         return v;
     }
-    public Vector GetAbsShape() {
+    public Vector<AbsLine> GetAbsShape() {
         return getRectAbsShape();
     }
     public boolean preferDrawFirst() {

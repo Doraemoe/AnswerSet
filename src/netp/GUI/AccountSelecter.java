@@ -92,8 +92,8 @@ class AccountSelecterP extends Panel implements ActionListener,TextListener
 	 */
 	private static final long serialVersionUID = 1L;
 	java.awt.List list ;
-	Vector ids,names;
-	Vector qids;
+	Vector<String> ids,names;
+	Vector<String> qids;
 	TextField tid,tname;
 
 	Button b_ok,b_cancel;
@@ -114,9 +114,9 @@ class AccountSelecterP extends Panel implements ActionListener,TextListener
     public void init()
     {
 		list=new List() ;
-		ids=new Vector();
-		names=new Vector();
-		qids=new Vector();
+		ids=new Vector<String>();
+		names=new Vector<String>();
+		qids=new Vector<String>();
 		tid=new TextField(10);
 		tname=new TextField(10);
 		tid.addTextListener(this);

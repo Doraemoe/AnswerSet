@@ -8,23 +8,23 @@ import netp.xml.*;
  
 public class NetpCanvasObjectSet
 {
-    private Hashtable m_objs;
+    private Hashtable<String, NetpCanvasObject> m_objs;
     private NetpCanvas m_par;
     
     private boolean selectChange=false;
-    private Vector groupSelected=new Vector();
+    private Vector<NetpCanvasObject> groupSelected=new Vector<NetpCanvasObject>();
 
-	private Vector m_objlist; 
+	private Vector<NetpCanvasObject> m_objlist; 
     public NetpCanvasObjectSet(NetpCanvas par) 
     {
         m_par=par;
-        m_objs=new Hashtable();
-		m_objlist=new Vector();
+        m_objs=new Hashtable<String, NetpCanvasObject>();
+		m_objlist=new Vector<NetpCanvasObject>();
     }
-    public Enumeration keys() {
+    public Enumeration<String> keys() {
         return m_objs.keys();
     }
-    public Enumeration elements() {
+    public Enumeration<NetpCanvasObject> elements() {
         return m_objs.elements();
     }
     public void draw(Graphics g)
@@ -45,19 +45,19 @@ public class NetpCanvasObjectSet
 
     }
     public void initSelectGroup() {
-        groupSelected=new Vector();
+        groupSelected=new Vector<NetpCanvasObject>();
     }
     public void addGroupSelectObject(NetpCanvasObject o) {
         groupSelected.addElement(o);
         o.setSelect(true);
     }
-    public Vector findGroupClickedObject(Point p_point) {
+    public Vector<NetpCanvasObject> findGroupClickedObject(Point p_point) {
         selectChange=false;
 
-        groupSelected=new Vector();
+        groupSelected=new Vector<NetpCanvasObject>();
         NetpCanvasObject p_obj;
 
-        for (Enumeration e = m_objs.elements() ; e.hasMoreElements() ;) 
+        for (Enumeration<NetpCanvasObject> e = m_objs.elements() ; e.hasMoreElements() ;) 
         {
             p_obj = (NetpCanvasObject) e.nextElement();
             if(p_obj.checkIfRawClicked(p_point))
@@ -108,7 +108,7 @@ public class NetpCanvasObjectSet
     public NetpCanvasObject findSelectObject()
     {
         NetpCanvasObject p_obj;
-        for (Enumeration e = m_objs.elements() ; e.hasMoreElements() ;) 
+        for (Enumeration<NetpCanvasObject> e = m_objs.elements() ; e.hasMoreElements() ;) 
         {
             p_obj = (NetpCanvasObject) e.nextElement();
             if(p_obj.isSelected()) return p_obj;
@@ -116,14 +116,14 @@ public class NetpCanvasObjectSet
         return null;
     }
 
-    public Vector findGroupSelectObject() {
+    public Vector<NetpCanvasObject> findGroupSelectObject() {
         return groupSelected;
     }
-    public Vector findRectSelectObject(int x,int y,int w,int h){
-        groupSelected=new Vector();
+    public Vector<NetpCanvasObject> findRectSelectObject(int x,int y,int w,int h){
+        groupSelected=new Vector<NetpCanvasObject>();
         NetpCanvasObject p_obj;
 
-        for (Enumeration e = m_objs.elements() ; e.hasMoreElements() ;) 
+        for (Enumeration<NetpCanvasObject> e = m_objs.elements() ; e.hasMoreElements() ;) 
         {
             p_obj = (NetpCanvasObject) e.nextElement();
             if(p_obj.inRect(x,y,w,h))
@@ -224,7 +224,7 @@ public class NetpCanvasObjectSet
     {
         NetpCanvasObject p_obj;
         NetpCanvasSubObject p_sub_obj;
-        for (Enumeration e = m_objs.elements() ; e.hasMoreElements() ;) 
+        for (Enumeration<NetpCanvasObject> e = m_objs.elements() ; e.hasMoreElements() ;) 
         {
             p_obj = (NetpCanvasObject) e.nextElement();
             p_sub_obj=p_obj.findSocket(p,p_socket_type);

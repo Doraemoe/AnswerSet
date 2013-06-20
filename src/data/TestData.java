@@ -177,6 +177,7 @@ public class TestData extends AbsData {
 		setClass(pn.findFirstChild("class").getValue());
     	
     }
+    
 	public String getDesc() {
     	return "class: "+m_class+"\nNo repeat literal:"+b_NoRepeatLiteral+
     		"\nn: "+m_n+", k: "+m_k+" l: "+m_l+" p: "+m_p+

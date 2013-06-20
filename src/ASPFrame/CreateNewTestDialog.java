@@ -21,7 +21,7 @@ public class CreateNewTestDialog
     
     JComboBox cb_testser2 = new JComboBox();  // kend
 
-    JComboBox cb_solver = new JComboBox();  // solver
+    JComboBox<String> cb_solver = new JComboBox<String>();  // solver
     
     int m_testser;
 

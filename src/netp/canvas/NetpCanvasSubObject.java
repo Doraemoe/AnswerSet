@@ -120,7 +120,7 @@ abstract public class NetpCanvasSubObject
     public String toString()
     {
         String sb;
-        sb=m_par.intToString(m_sub_id+"_status",m_status);
+        sb=NetpCanvasObject.intToString(m_sub_id+"_status",m_status);
         return sb;
     }
     public void setInit(NetpCanvasObjectParser ps)

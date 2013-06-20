@@ -4,11 +4,11 @@ import java.awt.*;
 import netp.*;
 public class NetpCanvasObjectParser
 {
-    private Hashtable m_pars;
+    private Hashtable<String, String> m_pars;
 
     public NetpCanvasObjectParser(String p_par)
     {
-        m_pars=new Hashtable();
+        m_pars=new Hashtable<String, String>();
         StringTokenizer st = new StringTokenizer(p_par,";");
         String p_str;
         while(st.hasMoreTokens())
