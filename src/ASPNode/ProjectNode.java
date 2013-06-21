@@ -13,7 +13,9 @@ import netp.canvas.NetpCanvas;
 import netp.xml.ParseNode;
 import ASPFrame.ASPFrame;
 import ASPFrame.CreateNewDataDialog;
+import ASPFrame.CreateNewDataDialogTab;
 import ASPFrame.CreateNewTestDialog;
+import ASPFrame.CreateNewThreeLiteralDataDialog;
 import ASPFrame.InterFrame;
 import ASPFrame.ShowStaticDialog;
 import ASPFrame.StaticsFrame;
@@ -424,25 +426,37 @@ public class ProjectNode extends DocNode
 		return getProjectData().createTestData(ser,batchMode);
 		
 	}
+	
 	void createNewTextData(){
-		CreateNewDataDialog dlg=new CreateNewDataDialog();
-		if(!dlg.start()){
+		CreateNewDataDialogTab dlg=new CreateNewDataDialogTab();
+		CreateNewDataDialog twoLitDlg;
+		CreateNewThreeLiteralDataDialog threeLitDlg;
+		if(!dlg.createAndShowGUI()){
 			return;
 		}
-		
-		if(dlg.isBatchMode()){
-			int iSetNum=dlg.getBatchSetNum();
-			int iTotalTm=0;
-			for(int i=0;i<iSetNum;++i){
-				dlg.setBatchIdx(i);
-				iTotalTm+=createNewTextData(dlg, true);
+		if(dlg.getSelectedTabNumber() == 0) {
+			twoLitDlg = dlg.getTwoLiteralDialog();
+			if(twoLitDlg.isBatchMode()){
+				int iSetNum=twoLitDlg.getBatchSetNum();
+				int iTotalTm=0;
+				for(int i=0;i<iSetNum;++i){
+					twoLitDlg.setBatchIdx(i);
+					iTotalTm+=createNewTextData(twoLitDlg, true);
+				}	
+				ASP.showMessageBox("There are "+iSetNum+" sets of data generated in "+iTotalTm+" milliseconds");
 			}
-			
-			ASP.showMessageBox("There are "+iSetNum+" sets of data generated in "+iTotalTm+" milliseconds");
-			
+			else 
+				createNewTextData(twoLitDlg,false);
 		}
-		else 
-			createNewTextData(dlg,false);
+		else if(dlg.getSelectedTabNumber() == 1) {
+			threeLitDlg = dlg.getThreeLiteralDialog();
+			System.out.println(threeLitDlg.getAtomNum());
+			System.out.println(threeLitDlg.getBatchSetNum());
+			System.out.println(threeLitDlg.getDensityRate());
+			System.out.println(threeLitDlg.getProgramNum());
+			System.out.println(threeLitDlg.getRuleMode());
+			System.out.println(threeLitDlg.getRulesNum());
+		}
 		
 	}
 	public void restoreProject() {

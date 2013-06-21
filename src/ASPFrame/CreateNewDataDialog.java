@@ -5,7 +5,6 @@ import java.awt.GridLayout;
 import javax.swing.JCheckBox;
 import javax.swing.JComboBox;
 import javax.swing.JLabel;
-import javax.swing.JOptionPane;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
 
@@ -141,56 +140,38 @@ public class CreateNewDataDialog
         
         
     }
-    public boolean start() 
+    
+    public void parseInput() 
     {
-       String[] options = {
-		    "OK",
-		    "Cancel"
-		};
-        int result = JOptionPane.showOptionDialog(
-		    null,                             // the parent that the dialog blocks
-		    jp,                                    // the dialog message array
-		    p_title, // the title of the dialog window
-		    JOptionPane.DEFAULT_OPTION,                 // option type
-		    JOptionPane.INFORMATION_MESSAGE,            // message type
-		    null,                                       // optional icon, use null to use the default icon
-		    options,                                    // options string array, will be made into buttons
-		    options[0]                                  // option that should be made into a default button
-		);
-        if(result==0) {
-        	
-        	m_n=Integer.parseInt(tf_atoms.getText());
-        	m_l=Integer.parseInt(tf_rules.getText());
-        	m_p=Integer.parseInt(tf_programs.getText());
-        	m_k=Integer.parseInt((String)cb_literals.getSelectedItem());
+    	m_n=Integer.parseInt(tf_atoms.getText());
+    	m_l=Integer.parseInt(tf_rules.getText());
+    	m_p=Integer.parseInt(tf_programs.getText());
+    	m_k=Integer.parseInt((String)cb_literals.getSelectedItem());
 
-        	d_fixDensityRate=Double.parseDouble(tf_fixDensityRate.getText());
-        	
-        	b_linerMode=ckb_linerMode.isSelected();
-        	b_noRepeatLiteral=ckb_noRepeatLiteral.isSelected();
+    	d_fixDensityRate=Double.parseDouble(tf_fixDensityRate.getText());
+    	
+    	b_linerMode=ckb_linerMode.isSelected();
+    	b_noRepeatLiteral=ckb_noRepeatLiteral.isSelected();
 
-        	b_usePowerLaw=ckb_usePowerLaw.isSelected();
-        	
-        	m_class=(String)cb_class.getSelectedItem();
+    	b_usePowerLaw=ckb_usePowerLaw.isSelected();
+    	
+    	m_class=(String)cb_class.getSelectedItem();
 
-        	
-        	b_batchMode=ckb_batchMode.isSelected();
-        	if(b_batchMode) {
-	            m_setNum=Integer.parseInt(tf_setNum.getText());
-	            m_lend=Integer.parseInt(tf_ruleEnds.getText());
-	            m_lstart=m_l;
+    	
+    	b_batchMode=ckb_batchMode.isSelected();
+    	if(b_batchMode) {
+            m_setNum=Integer.parseInt(tf_setNum.getText());
+            m_lend=Integer.parseInt(tf_ruleEnds.getText());
+            m_lstart=m_l;
 
-	            if(!b_noRepeatLiteral){ // allow repeat literal
-	            	b_repeatLiterateBatch=ckb_batchOnRepeatLiteral.isSelected();
-	            	if(b_repeatLiterateBatch){
-	                    d_repeatRateStart=Double.parseDouble(tf_repeatLiteralRateStart.getText());
-	                    d_repeatRateEnd=Double.parseDouble(tf_repeatLiteralRateEnd.getText());
-	            	}
-	            }
-        	}
-        	return true;
-        }
-        return false;
+            if(!b_noRepeatLiteral){ // allow repeat literal
+            	b_repeatLiterateBatch=ckb_batchOnRepeatLiteral.isSelected();
+            	if(b_repeatLiterateBatch){
+                    d_repeatRateStart=Double.parseDouble(tf_repeatLiteralRateStart.getText());
+                    d_repeatRateEnd=Double.parseDouble(tf_repeatLiteralRateEnd.getText());
+            	}
+            }
+    	}
     }
 
     public boolean isBatchMode(){
