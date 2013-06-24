@@ -423,8 +423,25 @@ public class ProjectNode extends DocNode
 		DataSetNode dsn=getDataSetNode();
 		dsn.addChildNode(nd);
 		save();
-		return getProjectData().createTestData(ser,batchMode);
+		return getProjectData().createTestData(ser,batchMode, 2);
 		
+	}
+	
+	int createNewTextData(CreateNewThreeLiteralDataDialog dlg, boolean batchMode){
+		DataSet ds=getDataSet();
+
+		int ser;
+		ser=ds.createNewTestData();
+		TestData dt;
+		dt=ds.getTestData(ser);
+		dt.setDataInfo(dlg);
+		
+		
+		TestDataNode nd=new TestDataNode(dt);
+		DataSetNode dsn=getDataSetNode();
+		dsn.addChildNode(nd);
+		save();
+		return getProjectData().createTestData(ser,batchMode, 3);
 	}
 	
 	void createNewTextData(){
@@ -450,12 +467,19 @@ public class ProjectNode extends DocNode
 		}
 		else if(dlg.getSelectedTabNumber() == 1) {
 			threeLitDlg = dlg.getThreeLiteralDialog();
-			System.out.println(threeLitDlg.getAtomNum());
-			System.out.println(threeLitDlg.getBatchSetNum());
-			System.out.println(threeLitDlg.getDensityRate());
-			System.out.println(threeLitDlg.getProgramNum());
-			System.out.println(threeLitDlg.getRuleMode());
-			System.out.println(threeLitDlg.getRulesNum());
+			if(threeLitDlg.isBatchMode()){
+				int iSetNum=threeLitDlg.getBatchSetNum();
+				int iTotalTm = 0;
+				for(int i = 0; i < iSetNum; ++i){
+					threeLitDlg.setBatchIdx(i);
+					iTotalTm+=createNewTextData(threeLitDlg, true);
+				}	
+				ASP.showMessageBox("There are "+iSetNum+" sets of data generated in "+iTotalTm+" milliseconds");
+			}
+			else {
+				createNewTextData(threeLitDlg,false);
+			}
+			
 		}
 		
 	}

@@ -39,7 +39,8 @@ public class ASPGenerator {
 		}
 		return sRet;
 	}
-	public String RandomGenerator(TestData dt){
+	
+	public String RandomGenerator(TestData dt, int litNum){
 		int p_k,p_n,p_l;
 		p_k=dt.getLiteralNum();
 		p_n=dt.getAtomNum();
@@ -69,13 +70,17 @@ public class ASPGenerator {
 			ASP.showMessageBox("Using fast mode. Only support no powerlaw type R- k=2");
 			return "";
 		}
-//		if(p_l<p_n*20) // for liner mode // from 5 to 20
-//			return RandomGenerator(p_k,p_n,p_l,iType,noRepeatLiteral,usePowerLaw); // for liner mode has bug
-//		if((iType==1)&&(p_k==2)&&(usePowerLaw==false)&&(p_l>(p_n*p_n/50))) {
+		if(litNum == 2) {
 			FastNegationTwoRuleGenerator fnt;
 			fnt=new FastNegationTwoRuleGenerator(p_n,p_l,noRepeatLiteral,independentRepeatLiteral,independentRepeatLiteralNum);
 			return fnt.getRules();
-//		}
+		}
+		else {
+			FastNegationThreeRuleGenerator fnt;
+			fnt=new FastNegationThreeRuleGenerator(p_n,p_l);	
+			return fnt.getRules();
+		}
+		
 		
 //		return RandomGenerator(p_k,p_n,p_l,iType,noRepeatLiteral,usePowerLaw);
 	}

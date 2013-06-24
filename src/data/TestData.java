@@ -3,6 +3,7 @@ package data;
 import java.io.PrintStream;
 
 import ASPFrame.CreateNewDataDialog;
+import ASPFrame.CreateNewThreeLiteralDataDialog;
 import AnswerSet.CalculateM;
 import netp.xml.BuildNode;
 import netp.xml.BuildTree;
@@ -197,6 +198,12 @@ public class TestData extends AbsData {
 		setUsePowerLaw(dlg.usePowerLaw());
 		setIndependentRepeatLiteral(dlg.isRepeatLiteralIndep());
 		setIndependentRepeatLiteralNum(dlg.getRepeatLiteralRuleNum());
+	}
+	
+	public void setDataInfo(CreateNewThreeLiteralDataDialog dlg) {
+		setAtomNum(dlg.getAtomNum());
+		setRulesNum(dlg.getRulesNum());
+		setProgramNum(dlg.getProgramNum());
 	}
 
     public double getRuleDensity(){

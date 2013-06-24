@@ -181,7 +181,7 @@ public class ASPProject extends AbsData{
 		return brs;
 		
     }
-    public int createTestData(int ser, boolean bMode){
+    public int createTestData(int ser, boolean bMode, int litNum){
     	String path;
     	path=getTestDataDir(ser);
 		new File(path).mkdirs();
@@ -198,8 +198,8 @@ public class ASPProject extends AbsData{
 		
 		long tmStart,tmEnd,tmUsage;
 		tmStart=System.currentTimeMillis();
-		for(i=0;i<programnum;++i){
-			strPro=gen.RandomGenerator(td);
+		for(i = 0;i < programnum; ++i){
+			strPro=gen.RandomGenerator(td, litNum);
 			proFile=getTestDataProgramFile(ser,i);
 			try {
 				f = new FileOutputStream(proFile);

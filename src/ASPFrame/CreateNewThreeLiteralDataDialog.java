@@ -87,18 +87,18 @@ public class CreateNewThreeLiteralDataDialog {
     
     
     public void parseInput() {
-    	m_n=Integer.parseInt(tf_atoms.getText());
-    	m_l=Integer.parseInt(tf_rules.getText());
-    	m_p=Integer.parseInt(tf_programs.getText());
+    	m_n = Integer.parseInt(tf_atoms.getText());
+    	m_l = Integer.parseInt(tf_rules.getText());
+    	m_p = Integer.parseInt(tf_programs.getText());
 
-    	d_fixDensityRate=Double.parseDouble(tf_fixDensityRate.getText());
-    	m_mode=(String) cb_mode.getSelectedItem();
-    	b_batchMode=ckb_batchMode.isSelected();
+    	d_fixDensityRate = Double.parseDouble(tf_fixDensityRate.getText());
+    	m_mode = (String) cb_mode.getSelectedItem();
+    	b_batchMode = ckb_batchMode.isSelected();
     	
     	if(b_batchMode) {
-            m_setNum=Integer.parseInt(tf_setNum.getText());
-            m_lend=Integer.parseInt(tf_ruleEnds.getText());
-            m_lstart=m_l;
+            m_setNum = Integer.parseInt(tf_setNum.getText());
+            m_lend = Integer.parseInt(tf_ruleEnds.getText());
+            m_lstart = m_l;
     	} 	
     }
 
@@ -112,8 +112,8 @@ public class CreateNewThreeLiteralDataDialog {
     		if(idx==0){
     			m_original_n=m_n;
     		}  		
-    		m_n=(m_lend*idx + m_original_n*(m_setNum-idx-1))/(m_setNum-1);
-    		m_l= (int) ((m_n-1 ) * d_fixDensityRate);
+    		m_n = (m_lend*idx + m_original_n*(m_setNum-idx-1))/(m_setNum-1);
+    		m_l = (int) ((m_n - 1) * d_fixDensityRate);
     		return;
     		
     	}
