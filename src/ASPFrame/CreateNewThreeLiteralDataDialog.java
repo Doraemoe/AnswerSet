@@ -77,7 +77,7 @@ public class CreateNewThreeLiteralDataDialog {
         jp.add(new JLabel("Batch data generator"));
         jp.add(ckb_batchMode);
          
-        jp.add(new JLabel("Number of rules (l) End. Or (n) if fixed density rate"));
+        jp.add(new JLabel("Number of atoms(n) End"));
         jp.add(tf_ruleEnds);
 
         jp.add(new JLabel("Number of data set in the batch"));
@@ -107,29 +107,28 @@ public class CreateNewThreeLiteralDataDialog {
     }
     
     public void setBatchIdx(int idx){
-    	
-    	if(b_linerMode){
+    	if(m_mode.equals("Liner Mode")) {
     		if(idx==0){
     			m_original_n=m_n;
     		}  		
-    		m_n = (m_lend*idx + m_original_n*(m_setNum-idx-1))/(m_setNum-1);
+    		m_n = (m_lend * idx + m_original_n * (m_setNum - idx - 1)) / (m_setNum - 1);
     		m_l = (int) ((m_n - 1) * d_fixDensityRate);
     		return;
-    		
     	}
- 
-    	if(d_fixDensityRate>0.00001){
+    	else if(m_mode.equals("Square Mode")) {
+    		if(idx==0){
+    			m_original_n=m_n;
+    		}	
+    		m_n = (m_lend * idx + m_original_n * (m_setNum - idx - 1)) / (m_setNum - 1);
+    		m_l = (int) ((m_n * (m_n - 1)) * d_fixDensityRate + 0.5);
+    	}
+    	else {
     		if(idx==0){
     			m_original_n=m_n;
     		}
-    		
-    		m_n=(m_lend*idx + m_original_n*(m_setNum-idx-1))/(m_setNum-1);
-    		m_l= (int) ((m_n * (m_n-1)) * d_fixDensityRate+0.5);
-    		
-    		return;
+    		m_n = (m_lend*idx + m_original_n*(m_setNum-idx-1)) / (m_setNum-1);
+    		m_l = (int) ((m_n * (m_n - 1) * (m_n - 2)) * d_fixDensityRate + 0.5);
     	}
-    	
-    	m_l=(m_lend*idx+m_lstart*(m_setNum-idx-1))/(m_setNum-1);
     }
     
     public int getBatchSetNum(){

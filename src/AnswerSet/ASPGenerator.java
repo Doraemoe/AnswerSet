@@ -75,10 +75,13 @@ public class ASPGenerator {
 			fnt=new FastNegationTwoRuleGenerator(p_n,p_l,noRepeatLiteral,independentRepeatLiteral,independentRepeatLiteralNum);
 			return fnt.getRules();
 		}
-		else {
+		else if(litNum == 3) {
 			FastNegationThreeRuleGenerator fnt;
 			fnt=new FastNegationThreeRuleGenerator(p_n,p_l);	
 			return fnt.getRules();
+		}
+		else {
+			return "Whatever";
 		}
 		
 		

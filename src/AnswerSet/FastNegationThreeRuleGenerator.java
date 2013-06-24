@@ -16,9 +16,9 @@ public class FastNegationThreeRuleGenerator {
 	}
 	
 	void initPool(){
-		vPool=new Vector<Integer>();
-		vIndPool=new Vector<Integer>();
-		int len=m_n*(m_n);
+		vPool = new Vector<Integer>();
+		vIndPool = new Vector<Integer>();
+		int len = m_n * (m_n);
 		int i;
 		
 		for(i=0;i<len;++i){
