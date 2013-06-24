@@ -1,9 +1,9 @@
 package ASPFrame;
 
+import java.awt.BorderLayout;
 import java.awt.GridLayout;
 
-import javax.swing.JCheckBox;
-import javax.swing.JComboBox;
+import javax.swing.BoxLayout;
 import javax.swing.JLabel;
 import javax.swing.JPanel;
 import javax.swing.JTextField;
@@ -13,18 +13,13 @@ public class CreateNewThreeLiteralDataDialog {
     JPanel jp;
 
     JTextField tf_atoms = new JTextField(5);  // n 
+    JTextField tf_atomEnds = new JTextField(5);   // 
+    
     JTextField tf_rules = new JTextField(5);   // l
+    JTextField tf_ruleEnds = new JTextField(5);
+    
     JTextField tf_programs = new JTextField(5);   // number of programs
-    JTextField tf_fixDensityRate = new JTextField("0.0"); // the fixed density rate
-    
-    JComboBox<String> cb_mode = new JComboBox<String>();
-    //JCheckBox ckb_linerMode = new JCheckBox(); // if using liner mode
-    //JCheckBox ckb_squareMode = new JCheckBox(); // if using squrare mode
-    //JCheckBox ckb_cubeMode = new JCheckBox(); // if using cube mode
-    
-    JCheckBox ckb_batchMode = new JCheckBox();
-    
-    JTextField tf_ruleEnds = new JTextField(5);   // l
+
     JTextField tf_setNum = new JTextField(5);   // l
     
     
@@ -34,54 +29,46 @@ public class CreateNewThreeLiteralDataDialog {
     
     boolean b_batchMode;
     int m_setNum;
-    int m_lend,m_lstart;
+    int m_nend, m_lend;
+    
     double d_fixDensityRate;
     boolean b_linerMode;
         
     String p_title="Create New Test Data";
-    private int m_original_n;
-    
-    void initComboBoxes(){
-    	int i;
-    	
-    	String strClasses[] = {"Liner Mode", "Square Mode", "Cube Mode"};
-    	for(i = 0;i < 3; ++i)
-    		cb_mode.addItem(strClasses[i]);
-    	
-    }
+    private int m_original_n, m_original_l;
     
     public CreateNewThreeLiteralDataDialog()
     {
-    	initComboBoxes();
     	
     	m_original_n=0;
-        jp=new JPanel();
-        jp.setLayout(new GridLayout(15, 2));
-
-
-        jp.add(new JLabel("Fix Density Rate"));
-		jp.add(tf_fixDensityRate);
-
-		jp.add(new JLabel("Rules Mode"));
-		jp.add(cb_mode);
+    	m_original_l=0;
+    	
+    	JPanel grid = new JPanel(new GridLayout(0, 2));
 		
-		jp.add(new JLabel("Number of atoms(n):"));
-        jp.add(tf_atoms);
+        grid.add(new JLabel("Number of atoms(n) begin:"));
+        grid.add(tf_atoms);
+        
+        grid.add(new JLabel("Number of atoms(n) end:"));
+        grid.add(tf_atomEnds);
 
-		jp.add(new JLabel("Number of rules in one program(l)"));
-		jp.add(tf_rules);
+        grid.add(new JLabel("Number of rules in one program begin:"));
+        grid.add(tf_rules);
+		
+        grid.add(new JLabel("Number of rules in one program end:"));
+        grid.add(tf_ruleEnds);
 
-		jp.add(new JLabel("Number of programs(l)"));
-		jp.add(tf_programs);
-
-        jp.add(new JLabel("Batch data generator"));
-        jp.add(ckb_batchMode);
-         
-        jp.add(new JLabel("Number of atoms(n) End"));
-        jp.add(tf_ruleEnds);
-
-        jp.add(new JLabel("Number of data set in the batch"));
-        jp.add(tf_setNum);   
+        grid.add(new JLabel("Number of programs"));
+        grid.add(tf_programs);
+        
+        grid.add(new JLabel("Number of data set in the batch"));
+        grid.add(tf_setNum);
+        
+        JPanel box = new JPanel();
+        box.setLayout(new BoxLayout(box, BoxLayout.PAGE_AXIS));
+        box.add(grid);
+ 
+        jp = new JPanel(new BorderLayout());
+        jp.add(box, BorderLayout.PAGE_START);
     }
     
     
@@ -91,14 +78,12 @@ public class CreateNewThreeLiteralDataDialog {
     	m_l = Integer.parseInt(tf_rules.getText());
     	m_p = Integer.parseInt(tf_programs.getText());
 
-    	d_fixDensityRate = Double.parseDouble(tf_fixDensityRate.getText());
-    	m_mode = (String) cb_mode.getSelectedItem();
-    	b_batchMode = ckb_batchMode.isSelected();
+    	b_batchMode = true;
     	
     	if(b_batchMode) {
             m_setNum = Integer.parseInt(tf_setNum.getText());
+            m_nend = Integer.parseInt(tf_atomEnds.getText());
             m_lend = Integer.parseInt(tf_ruleEnds.getText());
-            m_lstart = m_l;
     	} 	
     }
 
@@ -107,28 +92,13 @@ public class CreateNewThreeLiteralDataDialog {
     }
     
     public void setBatchIdx(int idx){
-    	if(m_mode.equals("Liner Mode")) {
-    		if(idx==0){
-    			m_original_n=m_n;
-    		}  		
-    		m_n = (m_lend * idx + m_original_n * (m_setNum - idx - 1)) / (m_setNum - 1);
-    		m_l = (int) ((m_n - 1) * d_fixDensityRate);
-    		return;
-    	}
-    	else if(m_mode.equals("Square Mode")) {
-    		if(idx==0){
-    			m_original_n=m_n;
-    		}	
-    		m_n = (m_lend * idx + m_original_n * (m_setNum - idx - 1)) / (m_setNum - 1);
-    		m_l = (int) ((m_n * (m_n - 1)) * d_fixDensityRate + 0.5);
-    	}
-    	else {
-    		if(idx==0){
-    			m_original_n=m_n;
-    		}
-    		m_n = (m_lend*idx + m_original_n*(m_setNum-idx-1)) / (m_setNum-1);
-    		m_l = (int) ((m_n * (m_n - 1) * (m_n - 2)) * d_fixDensityRate + 0.5);
-    	}
+		if(idx==0){
+			m_original_n = m_n;
+			m_original_l = m_l;
+		}  		
+		m_n = (m_nend * idx + m_original_n * (m_setNum - idx - 1)) / (m_setNum - 1);
+		m_l = (m_lend * idx + m_original_l * (m_setNum - idx - 1)) / (m_setNum - 1);
+		return;	
     }
     
     public int getBatchSetNum(){
@@ -146,12 +116,4 @@ public class CreateNewThreeLiteralDataDialog {
     public int getProgramNum(){
     	return m_p;
     }
-    
-    public String getRuleMode(){
-    	return m_mode;
-    }
-
-	public double getDensityRate(){
-		return d_fixDensityRate;
-	}
 }

@@ -466,6 +466,7 @@ public class ProjectNode extends DocNode
 				createNewTextData(twoLitDlg,false);
 		}
 		else if(dlg.getSelectedTabNumber() == 1) {
+			
 			threeLitDlg = dlg.getThreeLiteralDialog();
 			if(threeLitDlg.isBatchMode()){
 				int iSetNum=threeLitDlg.getBatchSetNum();

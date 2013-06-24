@@ -4,6 +4,7 @@ import javax.swing.JOptionPane;
 import javax.swing.JTabbedPane;
 import javax.swing.JPanel;
 import javax.swing.JComponent;
+
 import java.awt.event.KeyEvent;
 
 public class CreateNewDataDialogTab extends JPanel{
@@ -24,15 +25,15 @@ public class CreateNewDataDialogTab extends JPanel{
 		threeLiteralDlg = new CreateNewThreeLiteralDataDialog();	
 		
 		JComponent panel1 = twoLiteralDlg.jp;		
-		tabbedPane.addTab("Tab 1", null, panel1, "2 literal generator");
+		tabbedPane.addTab("2 Literal", null, panel1, "2 literal generator");
 		tabbedPane.setMnemonicAt(0, KeyEvent.VK_1);
 		
 		JComponent panel2 = threeLiteralDlg.jp;
-        tabbedPane.addTab("Tab 2", null, panel2, "3 literal generator");
+        tabbedPane.addTab("3 Literal", null, panel2, "3 literal generator");
         tabbedPane.setMnemonicAt(1, KeyEvent.VK_2);
         
         add(tabbedPane);
-        
+
         tabbedPane.setTabLayoutPolicy(JTabbedPane.SCROLL_TAB_LAYOUT);
 
 	}
