@@ -42,47 +42,53 @@ public class ASPGenerator {
 	
 	public String RandomGenerator(TestData dt, int litNum){
 		int p_k,p_n,p_l;
-		p_k=dt.getLiteralNum();
 		p_n=dt.getAtomNum();
 		p_l=dt.getRulesNum();
-		int iType;
-		boolean noRepeatLiteral;
-		boolean independentRepeatLiteral;
-		int independentRepeatLiteralNum;
-
-		independentRepeatLiteral=dt.isIndependentRepeatLiteral();
-		independentRepeatLiteralNum=dt.getIndependentRepeatLiteral();
 		
-		String strClassType;
-		strClassType=dt.getDataClass();
-
-		boolean usePowerLaw;
-		usePowerLaw=dt.usePowerLaw();
-		
-		iType=0; // random
-		if(strClassType.equals("mR-"))
-			iType=1; // Negative only
-		if(strClassType.equals("mR+"))
-			iType=2; // positive only
-		
-		noRepeatLiteral=dt.isNoRepeatLiteral();
-		if(usePowerLaw||(iType!=1)||(p_k!=2)){
-			ASP.showMessageBox("Using fast mode. Only support no powerlaw type R- k=2");
-			return "";
-		}
 		if(litNum == 2) {
+			p_k=dt.getLiteralNum();
+			int iType;
+			boolean noRepeatLiteral;
+			boolean independentRepeatLiteral;
+			int independentRepeatLiteralNum;
+
+			independentRepeatLiteral=dt.isIndependentRepeatLiteral();
+			independentRepeatLiteralNum=dt.getIndependentRepeatLiteral();
+			
+			String strClassType;
+			strClassType=dt.getDataClass();
+
+			boolean usePowerLaw;
+			usePowerLaw=dt.usePowerLaw();
+			
+			iType=0; // random
+			if(strClassType.equals("mR-"))
+				iType=1; // Negative only
+			if(strClassType.equals("mR+"))
+				iType=2; // positive only
+			
+			noRepeatLiteral=dt.isNoRepeatLiteral();
+			if(usePowerLaw||(iType!=1)||(p_k!=2)){
+				ASP.showMessageBox("Using fast mode. Only support no powerlaw type R- k=2");
+				return "";
+			}
+
 			FastNegationTwoRuleGenerator fnt;
 			fnt=new FastNegationTwoRuleGenerator(p_n,p_l,noRepeatLiteral,independentRepeatLiteral,independentRepeatLiteralNum);
 			return fnt.getRules();
+			
+
 		}
-		else if(litNum == 3) {
+		else if (litNum == 3) {
 			FastNegationThreeRuleGenerator fnt;
-			fnt=new FastNegationThreeRuleGenerator(p_n,p_l);	
+			fnt=new FastNegationThreeRuleGenerator(p_n,p_l);
 			return fnt.getRules();
 		}
+
 		else {
 			return "Whatever";
 		}
+		
 		
 		
 //		return RandomGenerator(p_k,p_n,p_l,iType,noRepeatLiteral,usePowerLaw);

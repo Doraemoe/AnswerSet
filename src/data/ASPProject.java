@@ -181,7 +181,7 @@ public class ASPProject extends AbsData{
 		return brs;
 		
     }
-    public int createTestData(int ser, boolean bMode, int litNum){
+    public int createTestData(int ser, boolean bMode, int litNum) { //litNum to represent how many lit in each rule
     	String path;
     	path=getTestDataDir(ser);
 		new File(path).mkdirs();
