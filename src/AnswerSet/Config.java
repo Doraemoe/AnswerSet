@@ -27,6 +27,7 @@ public class Config
     	registConfig("claspLoc",ConfigData.TYPESTRING,defaultDocRoot);
     	registConfig("smodelsLoc",ConfigData.TYPESTRING,defaultDocRoot);
     	registConfig("lparseLoc",ConfigData.TYPESTRING,defaultDocRoot);
+    	registConfig("clingoLoc",ConfigData.TYPESTRING,defaultDocRoot);
     	
     	registConfig("Version",ConfigData.TYPESTRING,"1.00");
     	registConfig("defNodeWidth",ConfigData.TYPEINTEGER, "150");

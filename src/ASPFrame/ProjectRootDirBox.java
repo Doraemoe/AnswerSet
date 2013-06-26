@@ -24,7 +24,7 @@ public class ProjectRootDirBox extends JDialog implements ActionListener {
 	JTextField textDir;
     JButton btBrowse,btOk,btCancel;
 
-    static final int PROJECT_ROOT=0, DLV_LOC=1,SMODELS_LOC=2,CLASP_LOC=3,LPARSE_LOC=4;
+    static final int PROJECT_ROOT=0, DLV_LOC=1,SMODELS_LOC=2,CLASP_LOC=3,LPARSE_LOC=4, CLINGO_LOC = 5;
     int m_type;
     public ProjectRootDirBox(JFrame f,int type) {
 		super(f, "Set system directories", true);
@@ -57,6 +57,11 @@ public class ProjectRootDirBox extends JDialog implements ActionListener {
         	sDir=Config.getConfig("lparseLoc");
     		this.setTitle("Set lparse Location");
         	lbUp.setText("Lparse Location");
+    		break;
+		case CLINGO_LOC:
+			sDir=Config.getConfig("clingoLoc");
+			this.setTitle("Set Clingo Location");
+			lbUp.setText("Clingo Location");
     		break;
 		}
 		container.add(lbUp,BorderLayout.NORTH);
@@ -135,6 +140,9 @@ public class ProjectRootDirBox extends JDialog implements ActionListener {
 			case LPARSE_LOC:
 				Config.SetConfig("lparseLoc",sDir);
 	    		break;
+			case CLINGO_LOC:
+				Config.SetConfig("clingoLoc", sDir);
+				break;
 			}
 			this.dispose();
 			return;

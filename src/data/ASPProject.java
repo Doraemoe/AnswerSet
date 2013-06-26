@@ -137,6 +137,16 @@ public class ASPProject extends AbsData{
 		
 		}
 		
+		if (strSolver.equals("Clingo")) {
+			strCommand=Config.getConfig("clingoLoc");
+			cmd[2]=strCommand;
+			cmd[3]="";
+			cmd[4]="";
+			cmd[5]="";
+			
+			if(allModel) cmd[8]= " 0 "; 
+		}
+		
 		
 		String cmda[] = {"cmd","/C","echo","info",">>","file"};
 		Runtime r=Runtime.getRuntime();
@@ -195,7 +205,6 @@ public class ASPProject extends AbsData{
 		FileOutputStream f;
 		PrintStream pr;
 
-		
 		long tmStart,tmEnd,tmUsage;
 		tmStart=System.currentTimeMillis();
 		for(i = 0;i < programnum; ++i){

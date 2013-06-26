@@ -299,7 +299,12 @@ public class ASPFrame extends JFrame {
 				openSetClaspFrame();
 		}});
 		
-		
+		JMenuItem setClingoDir=new JMenuItem("Clingo Location ...");
+
+		setClingoDir.addActionListener(new ActionListener(){
+			public void actionPerformed(ActionEvent e) {
+				openSetClingoFrame();
+		}});
 		
 		opt.addActionListener(new ActionListener() {
 			public void actionPerformed(ActionEvent e) {
@@ -328,6 +333,7 @@ public class ASPFrame extends JFrame {
 		views.add(setSmodelsDir);
 		views.add(setClaspDir);
 		views.add(setLParseDir);
+		views.add(setClingoDir);
 		
 		return views;
 		
@@ -360,6 +366,12 @@ public class ASPFrame extends JFrame {
     	box.setVisible(true);
     	
     }
+    
+    public void openSetClingoFrame () {
+    	ProjectRootDirBox box=new ProjectRootDirBox(this,ProjectRootDirBox.CLINGO_LOC);
+    	box.setVisible(true);
+    }
+    
 	 public void openOptionFrame()
 	 {
 		opt.setVisible(true);

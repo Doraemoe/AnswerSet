@@ -57,6 +57,7 @@ public class CreateNewTestDialog
         cb_solver.addItem("DLV");
         cb_solver.addItem("Smodels");
         cb_solver.addItem("Clasp");
+        cb_solver.addItem("Clingo");
         
         jp.add(new JLabel("Select Solver:"));
         jp.add(cb_solver);
