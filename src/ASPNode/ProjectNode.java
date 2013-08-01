@@ -118,6 +118,18 @@ public class ProjectNode extends DocNode
                     }
                 }
             );
+
+		JMenuItem mnUpdateTestResult;
+		mnUpdateTestResult=new JMenuItem("Update Test Basic Static");
+		mn.add(mnUpdateTestResult);
+		mnUpdateTestResult.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                    	tryUpdateTestBasicStat();
+                    }
+                }
+            );
+	
 		
 		
 	}
@@ -160,6 +172,12 @@ public class ProjectNode extends DocNode
 		tsn.addChildNode(trn);
 		save();
 		
+	}
+	void tryUpdateTestBasicStat(){
+		ASPProject data;
+		data=this.getProjectData();
+		data.updateTestBasicStat();
+		save();
 	}
 	void tryTest(){
 		ASPProject data;

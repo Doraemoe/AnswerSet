@@ -11,7 +11,7 @@ import netp.xml.ParseNode;
 
 public class TestData extends AbsData {
 
-    int m_n,m_k,m_l,m_p;
+    int m_n,m_k,m_l,m_p, m_c;
     boolean b_NoRepeatLiteral;
     boolean b_IndependentRepeatLiteral;
     int m_IndependentRepeatLiteralNum;
@@ -84,6 +84,9 @@ public class TestData extends AbsData {
     public int getProgramNum(){
     	return m_p;
     }
+    public int getConstraintsNum() {
+    	return m_c;
+    }
     public boolean isNoRepeatLiteral(){
     	return b_NoRepeatLiteral;
     }
@@ -121,6 +124,9 @@ public class TestData extends AbsData {
     }
     public void setProgramNum(int p){
     	m_p=p;
+    }
+    public void setConstraintsNum(int c) {
+    	m_c = c;
     }
     public void setNoRepeatLiteral(boolean b){
     	b_NoRepeatLiteral=b;
@@ -204,6 +210,7 @@ public class TestData extends AbsData {
 		setAtomNum(dlg.getAtomNum());
 		setRulesNum(dlg.getRulesNum());
 		setProgramNum(dlg.getProgramNum());
+		setConstraintsNum(dlg.getConstraintsNum());
 	}
 
     public double getRuleDensity(){

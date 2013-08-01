@@ -51,7 +51,7 @@ public class BasicResultStatic {
 			if(strResult.indexOf("True")>=0)
 				bHasAnswer=true;
 		}
-		if(strSolver.equals("Clasp")){
+		if((strSolver.equals("Clasp"))||(strSolver.equals("Clingo"))){
 			bHasAnswer=true;
 			if(strResult.indexOf("UNSATISFIABLE")>=0)
 				bHasAnswer=false;

@@ -11,6 +11,7 @@ public class ASPGenerator {
 	public ASPGenerator(){
 		sRules=new HashSet<ASPRule>();
 	}
+	
 	public String RandomGenerator(int k, int n,int l,int iType, boolean noRepeatLiteral, boolean bUsePowerLaw){//k: number of literals in a rule. n: number of atoms. l, number of rules 
 		sRules.clear();
 		ASPRule rule;
@@ -80,8 +81,9 @@ public class ASPGenerator {
 
 		}
 		else if (litNum == 3) {
+			int p_c = dt.getConstraintsNum();
 			FastNegationThreeRuleGenerator fnt;
-			fnt=new FastNegationThreeRuleGenerator(p_n,p_l);
+			fnt=new FastNegationThreeRuleGenerator(p_n,p_l, p_c);
 			return fnt.getRules();
 		}
 

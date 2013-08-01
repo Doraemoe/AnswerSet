@@ -80,6 +80,9 @@ public class TestResult extends AbsData {
     public void setSolver(String s){
     	strSolver=s;
     }
+    public String getSolver(){
+    	return strSolver;
+    }
     
     public void parseTree(ParseNode pn){
     	

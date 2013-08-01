@@ -18,30 +18,34 @@ public class CreateNewThreeLiteralDataDialog {
     JTextField tf_rules = new JTextField(5);   // l
     JTextField tf_ruleEnds = new JTextField(5);
     
+    JTextField tf_constraints = new JTextField(5); //constraint
+    JTextField tf_constraintEnds = new JTextField(5);
+    
     JTextField tf_programs = new JTextField(5);   // number of programs
 
     JTextField tf_setNum = new JTextField(5);   // l
     
     
     
-    int m_n, m_l, m_p;
+    int m_n, m_l, m_p, m_c;
     String m_mode;
     
     boolean b_batchMode;
     int m_setNum;
-    int m_nend, m_lend;
+    int m_nend, m_lend, m_cend;
     
     double d_fixDensityRate;
     boolean b_linerMode;
         
     String p_title="Create New Test Data";
-    private int m_original_n, m_original_l;
+    private int m_original_n, m_original_l, m_original_c;
     
     public CreateNewThreeLiteralDataDialog()
     {
     	
-    	m_original_n=0;
-    	m_original_l=0;
+    	m_original_n = 0;
+    	m_original_l = 0;
+    	m_original_c = 0;
     	
     	JPanel grid = new JPanel(new GridLayout(0, 2));
 		
@@ -56,6 +60,12 @@ public class CreateNewThreeLiteralDataDialog {
 		
         grid.add(new JLabel("Number of rules in one program end:"));
         grid.add(tf_ruleEnds);
+        
+        grid.add(new JLabel("Number of constraints in one program begin:"));
+        grid.add(tf_constraints);
+        
+        grid.add(new JLabel("Number of constraints in one program end:"));
+        grid.add(tf_constraintEnds);
 
         grid.add(new JLabel("Number of programs"));
         grid.add(tf_programs);
@@ -77,6 +87,7 @@ public class CreateNewThreeLiteralDataDialog {
     	m_n = Integer.parseInt(tf_atoms.getText());
     	m_l = Integer.parseInt(tf_rules.getText());
     	m_p = Integer.parseInt(tf_programs.getText());
+    	m_c = Integer.parseInt(tf_constraints.getText());
 
     	b_batchMode = true;
     	
@@ -84,6 +95,7 @@ public class CreateNewThreeLiteralDataDialog {
             m_setNum = Integer.parseInt(tf_setNum.getText());
             m_nend = Integer.parseInt(tf_atomEnds.getText());
             m_lend = Integer.parseInt(tf_ruleEnds.getText());
+            m_cend = Integer.parseInt(tf_constraintEnds.getText());
     	} 	
     }
 
@@ -95,9 +107,11 @@ public class CreateNewThreeLiteralDataDialog {
 		if(idx==0){
 			m_original_n = m_n;
 			m_original_l = m_l;
+			m_original_c = m_c;
 		}  		
 		m_n = (m_nend * idx + m_original_n * (m_setNum - idx - 1)) / (m_setNum - 1);
 		m_l = (m_lend * idx + m_original_l * (m_setNum - idx - 1)) / (m_setNum - 1);
+		m_c = (m_cend * idx + m_original_c * (m_setNum - idx - 1)) / (m_setNum - 1);
 		return;	
     }
     
@@ -115,5 +129,9 @@ public class CreateNewThreeLiteralDataDialog {
 
     public int getProgramNum(){
     	return m_p;
+    }
+    
+    public int getConstraintsNum() {
+    	return m_c;
     }
 }

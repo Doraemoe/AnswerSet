@@ -11,8 +11,8 @@ public class ShowStaticDialog
 {
 
     JPanel jp;
-    JComboBox<String> cb_testser = new JComboBox<String>();  // k
-    JComboBox<String> cb_testser2 = new JComboBox<String>();  // kend
+    JComboBox cb_testser = new JComboBox();  // k
+    JComboBox cb_testser2 = new JComboBox();  // kend
 
     
     int m_testser;

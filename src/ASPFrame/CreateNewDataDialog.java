@@ -15,9 +15,9 @@ public class CreateNewDataDialog
 
     JPanel jp;
 
-    JComboBox<String> cb_class = new JComboBox<String>();  // k
+    JComboBox cb_class = new JComboBox();  // k
     JTextField tf_atoms = new JTextField(5);  // n
-    JComboBox<String> cb_literals = new JComboBox<String>();  // k
+    JComboBox cb_literals = new JComboBox();  // k
 
     
     
@@ -45,7 +45,7 @@ public class CreateNewDataDialog
     
     
     
-    int m_n,m_k,m_l,m_p;
+    int m_n, m_k, m_l, m_p;
     boolean b_noRepeatLiteral;
     boolean b_usePowerLaw;
     String m_class;
@@ -53,11 +53,11 @@ public class CreateNewDataDialog
     boolean b_batchMode;
     boolean b_repeatLiterateBatch;
     int m_setNum;
-    int m_lend,m_lstart;
+    int m_lend, m_lstart;
     double d_fixDensityRate;
     boolean b_linerMode;
     
-    double d_repeatRateStart=0,d_repeatRateEnd=0;
+    double d_repeatRateStart=0, d_repeatRateEnd=0;
     double d_repeatLiteralRate=0;
     int m_repeatLiteralRuleNum=0;
     

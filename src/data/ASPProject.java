@@ -182,18 +182,52 @@ public class ASPProject extends AbsData{
 		
 		System.currentTimeMillis();
 		// perform the statistic analysis
-		BasicResultStatic brs=new BasicResultStatic();
-		brs.setSolver(strSolver);
-		for(i=0;i<programnum;++i){
-			resFile=getTestResultFile(tser,i);
-			brs.parseFile(resFile);
-		}
-		brs.parseFinish();
+//		BasicResultStatic brs=new BasicResultStatic();
+//		brs.setSolver(strSolver);
+//		for(i=0;i<programnum;++i){
+//			resFile=getTestResultFile(tser,i);
+//			brs.parseFile(resFile);
+//		}
+//		brs.parseFinish();
+		
+		BasicResultStatic brs=retrieveTestStatFromRawTestData(strSolver, tser,  programnum);
 		
 		if(!bBatchMode)
 			ASP.showMessageBox(brs.getStringResult());
 		return brs;
 		
+    }
+    BasicResultStatic retrieveTestStatFromRawTestData(String strSolver, int tser, int programnum){
+		BasicResultStatic brs=new BasicResultStatic();
+		brs.setSolver(strSolver);
+		String resFile;
+		for(int i=0;i<programnum;++i){
+			resFile=getTestResultFile(tser,i);
+			brs.parseFile(resFile);
+		}
+		brs.parseFinish();
+		
+		return brs;
+    }
+    
+    
+    
+    public void updateTestBasicStat(){ // to reload the raw data and try to get the basic result again.
+    	int tser, tts; // total test set;
+    	int dser, pnum;
+    	tts=getTestResultNum();
+    	TestResult tr;
+    	String strSolver;
+    	for(tser=0;tser<tts;++tser) {
+    		tr=this.getTestResult(tser);
+    		dser=tr.getTestDataNum(); // the data ser 
+    		pnum=this.getTestDataProgramNum(dser);
+    		strSolver= tr.getSolver();
+    		BasicResultStatic brs=retrieveTestStatFromRawTestData(strSolver, tser,  pnum);
+    		tr.setBasicResultStatic(brs);
+    	}
+    	return;
+    	
     }
     public int createTestData(int ser, boolean bMode, int litNum) { //litNum to represent how many lit in each rule
     	String path;
