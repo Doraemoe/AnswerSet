@@ -157,6 +157,10 @@ public class ASPProject extends AbsData{
 		for(i=0;i<programnum;++i){
 			proFile=getTestDataProgramFile(dser,i);
 			resFile=getTestResultFile(tser,i);
+			File abstractFile = new File(resFile);
+			if(abstractFile.exists()) {
+				continue;
+			}
 			cmd[5]=proFile;
 			cmd[10]=resFile;
 			try {

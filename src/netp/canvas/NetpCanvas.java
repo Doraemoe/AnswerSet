@@ -32,7 +32,7 @@ public class NetpCanvas extends JPanel implements ActionListener
     Graphics outg;
     Image outimg;
 
-    protected Vector m_groupobj;
+    protected Vector<NetpCanvasObject> m_groupobj;
     protected JPopupMenu m_groupmenu;
     protected JMenuItem m_groupdelete;
 
@@ -69,7 +69,7 @@ public class NetpCanvas extends JPanel implements ActionListener
         int i,s=m_groupobj.size();
         NetpCanvasObject p_ob;
         for(i=0;i<s;++i) {
-            p_ob=(NetpCanvasObject) m_groupobj.elementAt(i);
+            p_ob = m_groupobj.elementAt(i);
             p_ob.deleteMe();
         }
         repaint();
@@ -568,7 +568,7 @@ public class NetpCanvas extends JPanel implements ActionListener
     protected void receiveObject(NetpCanvasObject ob){
     }
 
-    protected void showGroupMenu(Point p,Vector v){
+    protected void showGroupMenu(Point p,Vector<NetpCanvasObject> v){
         m_groupobj=v;
         m_groupmenu.show(this,p.x,p.y);
     }
