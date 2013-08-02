@@ -30,8 +30,8 @@ public class OpenProjectDlg extends JDialog implements ListSelectionListener {
 	 * 
 	 */
 	ProjectRoot parent;
-	JList lstProjects;
-	DefaultListModel listModel;
+	JList<String> lstProjects;
+	DefaultListModel<String> listModel;
     JButton btOpen,btClose;
 
     
@@ -78,9 +78,9 @@ public class OpenProjectDlg extends JDialog implements ListSelectionListener {
 		plUp.setLayout(new BorderLayout());
 		
 		
-        listModel = new DefaultListModel();
+        listModel = new DefaultListModel<String>();
         //Create the list and put it in a scroll pane.
-        lstProjects = new JList(listModel);
+        lstProjects = new JList<String>(listModel);
         lstProjects.setSelectionMode(ListSelectionModel.SINGLE_SELECTION);
         lstProjects.setSelectedIndex(0);
         lstProjects.addListSelectionListener(this);
@@ -124,7 +124,7 @@ public class OpenProjectDlg extends JDialog implements ListSelectionListener {
     	int i,len=v.size();
     	String sName;
     	for(i=0;i<len;++i){
-    		sName=(String)v.get(i);
+    		sName=v.get(i);
     		listModel.addElement(sName);
     	}
     }
