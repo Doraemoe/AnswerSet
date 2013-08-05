@@ -76,6 +76,7 @@ public class CreateNewDataDialog
     		cb_class.addItem(strClasses[i]);
     	
     }
+    
     public CreateNewDataDialog()
     {
     	initComboBoxes();

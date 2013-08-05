@@ -1,13 +1,30 @@
 package data;
 
 import java.io.File;
+import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
+import java.io.IOException;
 import java.io.PrintStream;
+
+import javax.xml.parsers.DocumentBuilder;
+import javax.xml.parsers.DocumentBuilderFactory;
+import javax.xml.parsers.ParserConfigurationException;
+import javax.xml.transform.Transformer;
+import javax.xml.transform.TransformerConfigurationException;
+import javax.xml.transform.TransformerException;
+import javax.xml.transform.TransformerFactory;
+import javax.xml.transform.dom.DOMSource;
+import javax.xml.transform.stream.StreamResult;
+
+import org.w3c.dom.Document;
+import org.w3c.dom.Element;
+import org.w3c.dom.Node;
+import org.w3c.dom.NodeList;
+import org.xml.sax.SAXException;
 
 import AnswerSet.ASP;
 import AnswerSet.ASPGenerator;
 import AnswerSet.Config;
-
 import netp.NetpFileLineReader;
 import netp.xml.BuildNode;
 import netp.xml.BuildTree;
@@ -24,6 +41,7 @@ public class ASPProject extends AbsData{
 	ParseTree pt;
 	ParseNode pn;
 	
+	DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance(); 
 	
 //	BerpBehaviorTree m_bt;
 
@@ -441,6 +459,79 @@ public class ASPProject extends AbsData{
     public TestSet getTestSet(){
     	return m_testset;
     }
+    
+    public void addAnnotation(String annotation) {
+    	System.out.println(this.getFileName());
+    	Document document = parse(this.getFileName());
+    	Element rootElement = document.getDocumentElement(); 
+        NodeList nodes = rootElement.getChildNodes(); 
+        for (int i=0; i < nodes.getLength(); i++) 
+        { 
+           Node node = nodes.item(i); 
+           if (node.getNodeType() == Node.ELEMENT_NODE) {   
+              Element child = (Element) node; 
+              //process child element 
+              System.out.println(child.getNodeName());
+              if(child.getNodeName() == "Annotation") {
+            	  rootElement.removeChild(child);
+              }
+           } 
+        }
+        Element anno = document.createElement("Annotation");
+        Element velement = document.createElement("Value");
+        velement.setTextContent(annotation);
+        anno.appendChild(velement);
+        rootElement.appendChild(anno);
+        System.out.println(rootElement);
+        output(rootElement, this.getFileName());
+    }
+    
+    
+    //Load and parse XML file into DOM 
+    public Document parse(String filePath) { 
+       Document document = null; 
+       try { 
+          //DOM parser instance 
+          DocumentBuilder builder = builderFactory.newDocumentBuilder(); 
+          //parse an XML file into a DOM tree 
+          document = builder.parse(new File(filePath)); 
+       } catch (ParserConfigurationException e) { 
+          e.printStackTrace();  
+       } catch (SAXException e) { 
+          e.printStackTrace(); 
+       } catch (IOException e) { 
+          e.printStackTrace(); 
+       } 
+       return document; 
+    } 
+    
+    public static void output(Node node, String filename) {
+        TransformerFactory transFactory = TransformerFactory.newInstance();
+        try {
+          Transformer transformer = transFactory.newTransformer();
+
+          transformer.setOutputProperty("encoding", "utf8");
+          transformer.setOutputProperty("indent", "yes");
+          DOMSource source = new DOMSource();
+
+          source.setNode(node);
+          StreamResult result = new StreamResult();
+          if (filename == null) {
+
+            result.setOutputStream(System.out);
+          } else {
+            result.setOutputStream(new FileOutputStream(filename));
+          }
+
+          transformer.transform(source, result);
+        } catch (TransformerConfigurationException e) {
+          e.printStackTrace();
+        } catch (TransformerException e) {
+          e.printStackTrace();
+        } catch (FileNotFoundException e) {
+          e.printStackTrace();
+        }
+      }
 //    public void setCanvas(BerpTreeEditCanvas c){
 //    	m_cvs=c;
 //    }

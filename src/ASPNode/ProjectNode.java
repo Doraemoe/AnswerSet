@@ -12,6 +12,7 @@ import netp.GUI.LineCurve;
 import netp.canvas.NetpCanvas;
 import netp.xml.ParseNode;
 import ASPFrame.ASPFrame;
+import ASPFrame.CreateNewAnnotationDialog;
 import ASPFrame.CreateNewDataDialog;
 import ASPFrame.CreateNewDataDialogTab;
 import ASPFrame.CreateNewTestDialog;
@@ -130,7 +131,16 @@ public class ProjectNode extends DocNode
                 }
             );
 	
-		
+		JMenuItem mnAddAnnotation;
+		mnAddAnnotation=new JMenuItem("Add Annotation...");
+		mn.add(mnAddAnnotation);
+		mnAddAnnotation.addActionListener(
+                new ActionListener() {
+                    public void actionPerformed(ActionEvent e) {
+                    	tryAddAnnotation();
+                    }
+                }
+            );
 		
 	}
 
@@ -173,12 +183,25 @@ public class ProjectNode extends DocNode
 		save();
 		
 	}
-	void tryUpdateTestBasicStat(){
+	void tryUpdateTestBasicStat() {
 		ASPProject data;
 		data=this.getProjectData();
 		data.updateTestBasicStat();
 		save();
 	}
+	
+	void tryAddAnnotation() {
+		ASPProject data;
+		String annotation;
+		data = this.getProjectData();
+		CreateNewAnnotationDialog dlg = new CreateNewAnnotationDialog();
+		if(!dlg.start()) {
+			return;
+		}
+		annotation = dlg.getAnnotation();
+		data.addAnnotation(annotation);
+	}
+	
 	void tryTest(){
 		ASPProject data;
 		data=this.getProjectData();
