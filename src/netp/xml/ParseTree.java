@@ -180,4 +180,12 @@ public class ParseTree
     {
        return m_root.toString();
     }
+    
+    public void removeLastChild() {
+    	m_root.removeLast();
+    }
+    
+    public void addNode() {
+    	
+    }
 }

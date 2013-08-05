@@ -462,6 +462,43 @@ public class ASPProject extends AbsData{
     
     public void addAnnotation(String annotation) {
     	System.out.println(this.getFileName());
+    	
+    	pt=new ParseTree();
+   // 	ParseNode pn;
+    	
+    	String filename=getFileName();
+    	NetpFileLineReader fr=new NetpFileLineReader(filename);
+		if(fr.open()) { // file exist
+    		StringBuffer bf=new StringBuffer();
+    		String s;
+    		while((s=fr.readNextLine())!=null){
+    			bf.append(s);
+    		}
+    		fr.close();
+
+    		System.out.println(bf.toString());
+    		pt.parse(bf.toString());
+    		System.out.println("================");
+    		System.out.println(pt.getRoot().getChildNum());
+    		System.out.println(pt.getChildTags());
+    		
+    		if (pt.getChildTags().contains("Annotation")) {
+    			System.out.println("Here");
+    		}
+    		else {
+    			bf.insert(bf.length() - 13, " <Annotation>" + annotation + "</Annotation>");
+        		System.out.println(bf.toString());
+        		pt.parse(bf.toString());
+        		
+
+    		}
+    		
+
+   // 		pn=pt.getRoot();
+
+		}
+
+    	/*
     	Document document = parse(this.getFileName());
     	Element rootElement = document.getDocumentElement(); 
         NodeList nodes = rootElement.getChildNodes(); 
@@ -484,6 +521,7 @@ public class ASPProject extends AbsData{
         rootElement.appendChild(anno);
         System.out.println(rootElement);
         output(rootElement, this.getFileName());
+        */
     }
     
     

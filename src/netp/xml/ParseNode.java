@@ -331,6 +331,10 @@ public class ParseNode
     public ParseNode getParent() {
         return m_parent;
     }
+    
+    public void removeLast() {
+    	m_child.removeElementAt(m_child.size() - 1);
+    }
 
 }
 
