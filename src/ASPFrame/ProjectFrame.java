@@ -1,7 +1,6 @@
 package ASPFrame;
 
 
-import java.awt.BorderLayout;
 import java.awt.Dimension;
 import java.awt.Toolkit;
 import java.awt.event.MouseAdapter;
@@ -10,8 +9,8 @@ import java.awt.event.MouseListener;
 
 import javax.swing.Icon;
 import javax.swing.JInternalFrame;
-import javax.swing.JPanel;
 import javax.swing.JScrollPane;
+import javax.swing.JSplitPane;
 import javax.swing.JTextArea;
 import javax.swing.JTree;
 import javax.swing.ToolTipManager;
@@ -46,7 +45,7 @@ public class ProjectFrame extends JInternalFrame {
 
         Dimension screenSize = Toolkit.getDefaultToolkit().getScreenSize();
 
-		setBounds( 0, 0, 200, screenSize.height-50);
+		setBounds( 0, 0, 200, (int)(screenSize.height*0.85));
 		root=new ProjectRoot(ASPFrame.getData());
 
 		init();
@@ -59,16 +58,16 @@ public class ProjectFrame extends JInternalFrame {
 //    }
 	private void init()
 	{
-		JPanel panel=new JPanel();
+		
 
-		panel.setLayout(new BorderLayout());
+		//panel.setLayout(new BorderLayout());
 
 		JScrollPane sp = new JScrollPane();
 		sp.setPreferredSize(new Dimension(300, 300));
-		panel.add("Center",sp);
+		//panel.add("Center",sp);
 
 
-		setContentPane(panel);
+		
 		treeModel = new DefaultTreeModel(root);
 		tree=new JTree(treeModel);
 
@@ -79,9 +78,16 @@ public class ProjectFrame extends JInternalFrame {
         fid.setWrapStyleWord(true);
         fid.setLineWrap(true);
         JScrollPane sp2 = new JScrollPane();
-        panel.add("South",sp2);
+        //panel.add("South",sp2);
         sp2.getViewport().add(fid);
-
+        
+        JSplitPane panel=new JSplitPane(JSplitPane.VERTICAL_SPLIT, sp, sp2);
+        panel.setResizeWeight(1);
+        panel.setContinuousLayout(true);
+        //panel.setLayout(new BorderLayout());
+        setContentPane(panel);
+        
+        
 		MouseListener ml = new MouseAdapter() {
 			 public void mouseClicked(MouseEvent e) {
 				 int selRow = tree.getRowForLocation(e.getX(), e.getY());
