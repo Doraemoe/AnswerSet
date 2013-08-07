@@ -1,11 +1,9 @@
 package data;
 
-import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
-import java.io.InputStreamReader;
 import java.io.PrintStream;
 import java.util.concurrent.CountDownLatch;
 
@@ -119,12 +117,13 @@ public class ASPProject extends AbsData{
     	String path;
     	path=getTestResDir(tser);
 		new File(path).mkdirs();
+		downLatch = new CountDownLatch(4);
 
 		int programnum=getTestDataProgramNum(dser);
-		int i = 0;
+		//int i;
 
-		String proFile;
-		String resFile;
+		//String proFile;
+		//String resFile;
 		String strCommand;
 		
 		
@@ -171,45 +170,26 @@ public class ASPProject extends AbsData{
 		
 		
 		String cmda[] = {"cmd","/C","echo","info",">>","file"};
-		Runtime r=Runtime.getRuntime();
-		Process p;
+		//Runtime r=Runtime.getRuntime();
+		//Process p;
 		
-		proFile=getTestDataProgramFile(dser,i);
-		resFile=getTestResultFile(tser,i);
-		cmd[5]=proFile;
-		cmd[10]=resFile;
-		try {
-			p=r.exec(cmd);
-		    p.waitFor();
-		    BufferedReader  br =  new  BufferedReader (new  InputStreamReader(p.getErrorStream()));  
-		    String msg = null;
-		    while  ((msg =  br .readLine())  !=  null)  {  
-		         System.out.println(msg );  
-		    }  
-		    System.out.println("finished "+i+" out of "+programnum);
-   
-		} catch (Exception e) {
-		      e.printStackTrace();
-		}
 		
 		//long tmStarta,tmEnda,tmUsagea;
 		System.currentTimeMillis();
-		System.out.println("-------------");
-		System.out.println(cmd[0] + cmd[1]+ cmd[2]+ cmd[3]+ cmd[4]+ cmd[5]+ cmd[6]+ cmd[7]);
-		System.out.println("-------------");
 		
 		CommandSet command = new CommandSet(cmd, cmda, m_sysName, m_filePath, dser, tser, programnum);
 		
-		//new Thread(new ComputeResult(downLatch, command)).start();
-		//new Thread(new ComputeResult(downLatch, command)).start();
-		//new Thread(new ComputeResult(downLatch, command)).start();
-		//new Thread(new ComputeResult(downLatch, command)).start();
+		new Thread(new ComputeResult(downLatch, command)).start();
+		new Thread(new ComputeResult(downLatch, command)).start();
+		new Thread(new ComputeResult(downLatch, command)).start();
+		new Thread(new ComputeResult(downLatch, command)).start();
 		
 		try {  
             downLatch.await(); 
         } catch (InterruptedException e) {  
             System.out.println("main interrupted.");  
         }
+		System.out.println("All finished");
 		/*
 		for(i=0;i<programnum;++i){
 			proFile=getTestDataProgramFile(dser,i);

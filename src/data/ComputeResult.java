@@ -2,7 +2,6 @@ package data;
 
 import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStream;
 import java.io.InputStreamReader;
 import java.util.concurrent.CountDownLatch;
 
@@ -38,26 +37,10 @@ public class ComputeResult implements Runnable {
 			}
 			cmd[5]=proFile;
 			cmd[10]=resFile;
-			System.out.println("0000000000000");
-			System.out.println(cmd[0]);
-			System.out.println("0000000000000");
-			System.out.println(cmd[1]);
-			System.out.println("0000000000000");
-			System.out.println(cmd[2]);
-			System.out.println("0000000000000");
-			System.out.println(cmd[3]);
-			System.out.println("0000000000000");
-			System.out.println(cmd[4]);
-			System.out.println("0000000000000");
-			System.out.println(cmd[5]);
-			System.out.println("0000000000000");
-			System.out.println(cmd[6]);
-			System.out.println("0000000000000");
 			try {
 				tmStarta=System.currentTimeMillis();
 				p=r.exec(cmd);
 			    p.waitFor();
-			    
 			    
 			    BufferedReader  br =  new  BufferedReader (new  InputStreamReader(p.getErrorStream()));  
 			    String msg = null;
@@ -79,6 +62,7 @@ public class ComputeResult implements Runnable {
 		}
 		
 		downLatch.countDown();
+		System.out.println("Finished");
     }  
 
 	public String getTestDataProgramFile(int dataser,int programser){
