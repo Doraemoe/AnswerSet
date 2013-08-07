@@ -1,10 +1,13 @@
 package data;
 
+import java.io.BufferedReader;
 import java.io.File;
 import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
 import java.io.IOException;
+import java.io.InputStreamReader;
 import java.io.PrintStream;
+import java.util.concurrent.CountDownLatch;
 
 import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
@@ -17,9 +20,7 @@ import javax.xml.transform.dom.DOMSource;
 import javax.xml.transform.stream.StreamResult;
 
 import org.w3c.dom.Document;
-import org.w3c.dom.Element;
 import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
 import org.xml.sax.SAXException;
 
 import AnswerSet.ASP;
@@ -43,6 +44,8 @@ public class ASPProject extends AbsData{
 	
 	DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance(); 
 	
+	CountDownLatch downLatch;
+	
 //	BerpBehaviorTree m_bt;
 
 //	BerpTreeEditCanvas m_cvs;
@@ -58,6 +61,7 @@ public class ASPProject extends AbsData{
     	addChild(m_testset);
     	m_testset.setParent(this);
 //    	m_cvs=null;
+    	downLatch = new CountDownLatch(4);
     }
     public void setFilePath(String p){
     	m_filePath=p;
@@ -117,7 +121,7 @@ public class ASPProject extends AbsData{
 		new File(path).mkdirs();
 
 		int programnum=getTestDataProgramNum(dser);
-		int i;
+		int i = 0;
 
 		String proFile;
 		String resFile;
@@ -170,8 +174,43 @@ public class ASPProject extends AbsData{
 		Runtime r=Runtime.getRuntime();
 		Process p;
 		
-		long tmStarta,tmEnda,tmUsagea;
+		proFile=getTestDataProgramFile(dser,i);
+		resFile=getTestResultFile(tser,i);
+		cmd[5]=proFile;
+		cmd[10]=resFile;
+		try {
+			p=r.exec(cmd);
+		    p.waitFor();
+		    BufferedReader  br =  new  BufferedReader (new  InputStreamReader(p.getErrorStream()));  
+		    String msg = null;
+		    while  ((msg =  br .readLine())  !=  null)  {  
+		         System.out.println(msg );  
+		    }  
+		    System.out.println("finished "+i+" out of "+programnum);
+   
+		} catch (Exception e) {
+		      e.printStackTrace();
+		}
+		
+		//long tmStarta,tmEnda,tmUsagea;
 		System.currentTimeMillis();
+		System.out.println("-------------");
+		System.out.println(cmd[0] + cmd[1]+ cmd[2]+ cmd[3]+ cmd[4]+ cmd[5]+ cmd[6]+ cmd[7]);
+		System.out.println("-------------");
+		
+		CommandSet command = new CommandSet(cmd, cmda, m_sysName, m_filePath, dser, tser, programnum);
+		
+		//new Thread(new ComputeResult(downLatch, command)).start();
+		//new Thread(new ComputeResult(downLatch, command)).start();
+		//new Thread(new ComputeResult(downLatch, command)).start();
+		//new Thread(new ComputeResult(downLatch, command)).start();
+		
+		try {  
+            downLatch.await(); 
+        } catch (InterruptedException e) {  
+            System.out.println("main interrupted.");  
+        }
+		/*
 		for(i=0;i<programnum;++i){
 			proFile=getTestDataProgramFile(dser,i);
 			resFile=getTestResultFile(tser,i);
@@ -197,7 +236,7 @@ public class ASPProject extends AbsData{
 			      e.printStackTrace();
 			}
 		}
-		
+		*/
 		System.currentTimeMillis();
 		// perform the statistic analysis
 //		BasicResultStatic brs=new BasicResultStatic();
