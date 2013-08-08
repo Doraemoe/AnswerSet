@@ -31,6 +31,7 @@ public class ComputeResult implements Runnable {
 			
 			File abstractFile = new File(resFile);
 			if(abstractFile.exists()) {
+				i = command.geti();
 				continue;
 			}
 			cmd[5]=proFile;
