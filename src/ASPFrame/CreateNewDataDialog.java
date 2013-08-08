@@ -15,9 +15,9 @@ public class CreateNewDataDialog
 
     JPanel jp;
 
-    JComboBox cb_class = new JComboBox();  // k
+    JComboBox<String> cb_class = new JComboBox<String>();  // k
     JTextField tf_atoms = new JTextField(5);  // n
-    JComboBox cb_literals = new JComboBox();  // k
+    JComboBox<String> cb_literals = new JComboBox<String>();  // k
 
     
     

@@ -13,15 +13,15 @@ public class CreateNewTestDialog
 
     JPanel jp;
 
-    JComboBox cb_testser = new JComboBox();  // k
+    JComboBox<String> cb_testser = new JComboBox<String>();  // k
 
     
     JCheckBox ckb_batchMode = new JCheckBox();
     JCheckBox ckb_allModel=new JCheckBox(); // find all models or not
     
-    JComboBox cb_testser2 = new JComboBox();  // kend
+    JComboBox<String> cb_testser2 = new JComboBox<String>();  // kend
 
-    JComboBox cb_solver = new JComboBox();  // solver
+    JComboBox<String> cb_solver = new JComboBox<String>();  // solver
     
     int m_testser;
 
