@@ -1,8 +1,6 @@
 package data;
 
-import java.io.BufferedReader;
 import java.io.File;
-import java.io.InputStreamReader;
 import java.util.concurrent.CountDownLatch;
 
 public class ComputeResult implements Runnable {
@@ -41,13 +39,6 @@ public class ComputeResult implements Runnable {
 				tmStarta=System.currentTimeMillis();
 				p=r.exec(cmd);
 			    p.waitFor();
-			    
-			    BufferedReader  br =  new  BufferedReader (new  InputStreamReader(p.getErrorStream()));  
-			    String msg = null;
-			    while  ((msg =  br .readLine())  !=  null)  {  
-			         System.out.println(msg );  
-			    }  
-			    
 				tmEnda=System.currentTimeMillis();
 			    tmUsagea=tmEnda-tmStarta;
 			    cmda[3]="UsedTime: "+tmUsagea;

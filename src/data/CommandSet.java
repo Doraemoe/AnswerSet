@@ -21,12 +21,7 @@ public class CommandSet {
 		i = 0;
 	}
 	
-	public synchronized int geti() {
-		increasei();
-		return i - 1;
-	}
-	
-	public synchronized void increasei() {
-		++i;
+	public synchronized int geti() {	
+		return i++;
 	}
 }
