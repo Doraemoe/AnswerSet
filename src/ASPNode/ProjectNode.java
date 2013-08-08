@@ -195,11 +195,14 @@ public class ProjectNode extends DocNode
 		String annotation;
 		data = this.getProjectData();
 		CreateNewAnnotationDialog dlg = new CreateNewAnnotationDialog();
+		dlg.setAnnoation(data.getAnnotation()); // add_annotation
 		if(!dlg.start()) {
 			return;
 		}
 		annotation = dlg.getAnnotation();
-		data.addAnnotation(annotation);
+//		data.addAnnotation(annotation); // add_annotation
+		data.setAnnoation(annotation); // add_annotation
+		save(); // add_annotation
 	}
 	
 	void tryTest(){

@@ -25,6 +25,11 @@ public class CreateNewAnnotationDialog {
 		
 	}
 	
+	public void setAnnoation(String s) { // add_annotation
+		annotation=s; // add_annotation
+		annotationBox.setText(s); // add_annotation
+	} // add_annotation
+	
 	public void parseInput() {
 		annotation = annotationBox.getText();
 	}

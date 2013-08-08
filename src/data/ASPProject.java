@@ -1,27 +1,9 @@
 package data;
 
 import java.io.File;
-import java.io.FileNotFoundException;
 import java.io.FileOutputStream;
-import java.io.IOException;
 import java.io.PrintStream;
-
-import javax.xml.parsers.DocumentBuilder;
 import javax.xml.parsers.DocumentBuilderFactory;
-import javax.xml.parsers.ParserConfigurationException;
-import javax.xml.transform.Transformer;
-import javax.xml.transform.TransformerConfigurationException;
-import javax.xml.transform.TransformerException;
-import javax.xml.transform.TransformerFactory;
-import javax.xml.transform.dom.DOMSource;
-import javax.xml.transform.stream.StreamResult;
-
-import org.w3c.dom.Document;
-import org.w3c.dom.Element;
-import org.w3c.dom.Node;
-import org.w3c.dom.NodeList;
-import org.xml.sax.SAXException;
-
 import AnswerSet.ASP;
 import AnswerSet.ASPGenerator;
 import AnswerSet.Config;
@@ -42,7 +24,7 @@ public class ASPProject extends AbsData{
 	ParseNode pn;
 	
 	DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance(); 
-	
+	String m_annotation;
 //	BerpBehaviorTree m_bt;
 
 //	BerpTreeEditCanvas m_cvs;
@@ -57,8 +39,17 @@ public class ASPProject extends AbsData{
     	m_testset=new TestSet();
     	addChild(m_testset);
     	m_testset.setParent(this);
+    	m_annotation="";
 //    	m_cvs=null;
     }
+    
+    public void setAnnoation(String a){ 
+    	m_annotation=a; 
+    }
+    public String getAnnotation(){
+    	return m_annotation; 
+    }
+    
     public void setFilePath(String p){
     	m_filePath=p;
     }
@@ -385,6 +376,10 @@ public class ASPProject extends AbsData{
             
             bn=new BuildNode("Sysname",m_sysName);
             bt.appendChild(bn);
+            
+            bn=new BuildNode("Comment",m_annotation); // add_annotation
+            bt.appendChild(bn);
+            
             m_dataset.buildTree(bt);
             m_testset.buildTree(bt);
             
@@ -417,12 +412,21 @@ public class ASPProject extends AbsData{
     		fr.close();
 
     		pt.parse(bf.toString());
-
+    		parseAnnoation();
    // 		pn=pt.getRoot();
     		return true;
 		}
 		return false;
     
+    }
+    
+    private void parseAnnoation(){
+		ParseNode pn;
+		pn=pt.getRoot();
+		String annotation;
+		annotation=pn.getChildValue("Comment");
+		setAnnoation(annotation);
+    	
     }
     
     public ParseNode getDataSetParseNode(){
@@ -459,122 +463,4 @@ public class ASPProject extends AbsData{
     public TestSet getTestSet(){
     	return m_testset;
     }
-    
-    public void addAnnotation(String annotation) {
-    	System.out.println(this.getFileName());
-    	
-    	pt=new ParseTree();
-   // 	ParseNode pn;
-    	
-    	String filename=getFileName();
-    	NetpFileLineReader fr=new NetpFileLineReader(filename);
-		if(fr.open()) { // file exist
-    		StringBuffer bf=new StringBuffer();
-    		String s;
-    		while((s=fr.readNextLine())!=null){
-    			bf.append(s);
-    		}
-    		fr.close();
-
-    		System.out.println(bf.toString());
-    		pt.parse(bf.toString());
-    		System.out.println("================");
-    		System.out.println(pt.getRoot().getChildNum());
-    		System.out.println(pt.getChildTags());
-    		
-    		if (pt.getChildTags().contains("Annotation")) {
-    			System.out.println("Here");
-    		}
-    		else {
-    			bf.insert(bf.length() - 13, " <Annotation>" + annotation + "</Annotation>");
-        		System.out.println(bf.toString());
-        		pt.parse(bf.toString());
-        		
-
-    		}
-    		
-
-   // 		pn=pt.getRoot();
-
-		}
-
-    	/*
-    	Document document = parse(this.getFileName());
-    	Element rootElement = document.getDocumentElement(); 
-        NodeList nodes = rootElement.getChildNodes(); 
-        for (int i=0; i < nodes.getLength(); i++) 
-        { 
-           Node node = nodes.item(i); 
-           if (node.getNodeType() == Node.ELEMENT_NODE) {   
-              Element child = (Element) node; 
-              //process child element 
-              System.out.println(child.getNodeName());
-              if(child.getNodeName() == "Annotation") {
-            	  rootElement.removeChild(child);
-              }
-           } 
-        }
-        Element anno = document.createElement("Annotation");
-        Element velement = document.createElement("Value");
-        velement.setTextContent(annotation);
-        anno.appendChild(velement);
-        rootElement.appendChild(anno);
-        System.out.println(rootElement);
-        output(rootElement, this.getFileName());
-        */
-    }
-    
-    
-    //Load and parse XML file into DOM 
-    public Document parse(String filePath) { 
-       Document document = null; 
-       try { 
-          //DOM parser instance 
-          DocumentBuilder builder = builderFactory.newDocumentBuilder(); 
-          //parse an XML file into a DOM tree 
-          document = builder.parse(new File(filePath)); 
-       } catch (ParserConfigurationException e) { 
-          e.printStackTrace();  
-       } catch (SAXException e) { 
-          e.printStackTrace(); 
-       } catch (IOException e) { 
-          e.printStackTrace(); 
-       } 
-       return document; 
-    } 
-    
-    public static void output(Node node, String filename) {
-        TransformerFactory transFactory = TransformerFactory.newInstance();
-        try {
-          Transformer transformer = transFactory.newTransformer();
-
-          transformer.setOutputProperty("encoding", "utf8");
-          transformer.setOutputProperty("indent", "yes");
-          DOMSource source = new DOMSource();
-
-          source.setNode(node);
-          StreamResult result = new StreamResult();
-          if (filename == null) {
-
-            result.setOutputStream(System.out);
-          } else {
-            result.setOutputStream(new FileOutputStream(filename));
-          }
-
-          transformer.transform(source, result);
-        } catch (TransformerConfigurationException e) {
-          e.printStackTrace();
-        } catch (TransformerException e) {
-          e.printStackTrace();
-        } catch (FileNotFoundException e) {
-          e.printStackTrace();
-        }
-      }
-//    public void setCanvas(BerpTreeEditCanvas c){
-//    	m_cvs=c;
-//    }
-//    public BerpTreeEditCanvas getCanvas(){
-//    	return m_cvs;
-//    }
-
 }
