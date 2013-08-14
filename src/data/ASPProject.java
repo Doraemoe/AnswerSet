@@ -3,6 +3,7 @@ package data;
 import java.io.File;
 import java.io.FileOutputStream;
 import java.io.PrintStream;
+import java.util.concurrent.CountDownLatch;
 import javax.xml.parsers.DocumentBuilderFactory;
 import AnswerSet.ASP;
 import AnswerSet.ASPGenerator;
@@ -25,6 +26,8 @@ public class ASPProject extends AbsData{
 	
 	DocumentBuilderFactory builderFactory = DocumentBuilderFactory.newInstance(); 
 	String m_annotation;
+	CountDownLatch downLatch;
+	
 //	BerpBehaviorTree m_bt;
 
 //	BerpTreeEditCanvas m_cvs;
@@ -41,6 +44,7 @@ public class ASPProject extends AbsData{
     	m_testset.setParent(this);
     	m_annotation="";
 //    	m_cvs=null;
+    	downLatch = new CountDownLatch(4);
     }
     
     public void setAnnoation(String a){ 
@@ -106,12 +110,13 @@ public class ASPProject extends AbsData{
     	String path;
     	path=getTestResDir(tser);
 		new File(path).mkdirs();
+		downLatch = new CountDownLatch(4);
 
 		int programnum=getTestDataProgramNum(dser);
-		int i;
+		//int i;
 
-		String proFile;
-		String resFile;
+		//String proFile;
+		//String resFile;
 		String strCommand;
 		
 		
@@ -158,11 +163,45 @@ public class ASPProject extends AbsData{
 		
 		
 		String cmda[] = {"cmd","/C","echo","info",">>","file"};
-		Runtime r=Runtime.getRuntime();
-		Process p;
+		//Runtime r=Runtime.getRuntime();
+		//Process p;
 		
-		long tmStarta,tmEnda,tmUsagea;
+		
+		//long tmStarta,tmEnda,tmUsagea;
 		System.currentTimeMillis();
+		
+		CommandSet command = new CommandSet(cmd, cmda, m_sysName, m_filePath, dser, tser, programnum);
+		
+		new Thread(new ComputeResult(downLatch, command)).start();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		new Thread(new ComputeResult(downLatch, command)).start();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		new Thread(new ComputeResult(downLatch, command)).start();
+		try {
+			Thread.sleep(1000);
+		} catch (InterruptedException e1) {
+			// TODO Auto-generated catch block
+			e1.printStackTrace();
+		}
+		new Thread(new ComputeResult(downLatch, command)).start();
+		
+		try {  
+            downLatch.await(); 
+        } catch (InterruptedException e) {  
+            System.out.println("main interrupted.");  
+        }
+		System.out.println("All finished");
+		/*
 		for(i=0;i<programnum;++i){
 			proFile=getTestDataProgramFile(dser,i);
 			resFile=getTestResultFile(tser,i);
@@ -188,7 +227,7 @@ public class ASPProject extends AbsData{
 			      e.printStackTrace();
 			}
 		}
-		
+		*/
 		System.currentTimeMillis();
 		// perform the statistic analysis
 //		BasicResultStatic brs=new BasicResultStatic();
