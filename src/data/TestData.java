@@ -30,7 +30,7 @@ public class TestData extends AbsData {
     	super();
     }
     public String toString() {
-    	return "n: "+m_n+", k: "+m_k+" l: "+m_l+" p: "+m_p;
+    	return "n: "+m_n+", k: "+m_k+" l: "+m_l+" p: "+ m_p + " c: " + m_c;
     }
 	public String getName() {
 		
@@ -52,6 +52,8 @@ public class TestData extends AbsData {
         bn=new BuildNode("l",""+m_l);
         bt.appendChild(bn);
         bn=new BuildNode("p",""+m_p);
+        bt.appendChild(bn);
+        bn=new BuildNode("c",""+m_c);
         bt.appendChild(bn);
         bn=new BuildNode("NoRepeatLiteral",""+b_NoRepeatLiteral);
         bt.appendChild(bn);
@@ -152,6 +154,7 @@ public class TestData extends AbsData {
 		setRulesNum(Integer.parseInt(pn.findFirstChild("l").getValue()));
 		setLiteralNum(Integer.parseInt(pn.findFirstChild("k").getValue()));
 		setProgramNum(Integer.parseInt(pn.findFirstChild("p").getValue()));
+		setConstraintsNum(Integer.parseInt(pn.findFirstChild("c").getValue()));
 		if(pn.findFirstChild("NoRepeatLiteral").getValue().equals("true"))
 			setNoRepeatLiteral(true);
 		else 
@@ -187,7 +190,7 @@ public class TestData extends AbsData {
     
 	public String getDesc() {
     	return "class: "+m_class+"\nNo repeat literal:"+b_NoRepeatLiteral+
-    		"\nn: "+m_n+", k: "+m_k+" l: "+m_l+" p: "+m_p+
+    		"\nn: "+m_n+", k: "+m_k+" l: "+m_l+" p: "+m_p+" c: "+ m_c +
     		"\nPowerlaw distribution:"+b_usePowerLaw+
     		"\nIdpRepLit:"+b_IndependentRepeatLiteral+ " IdpRepNum: "+m_IndependentRepeatLiteralNum
     		

@@ -31,11 +31,11 @@ public class FastNegationThreeRuleGenerator {
 	
 	public void RandomGenerate(){// k is the number of literals in the rule. n is the number of atoms.		
 		while (remainConstraints > 0) {
-			iHead = rdm.nextInt(m_n);
-			body1 = iHead;
+			//iHead = rdm.nextInt(m_n);
+			body1 = rdm.nextInt(m_n);
 			do {
 				body2 = rdm.nextInt(m_n);
-			} while (body2 == iHead);
+			} while (body2 == body1);
 			
 			if (!tryInsertConstraint()) {
 				++remainConstraints;
@@ -63,8 +63,15 @@ public class FastNegationThreeRuleGenerator {
 	
 	private boolean tryInsertConstraint() {
 		ArrayList<Integer> constraintAtom = new ArrayList<Integer>();
-		constraintAtom.add(Integer.valueOf(iHead));
-		constraintAtom.add(Integer.valueOf(body2));
+		if (body1 < body2) {
+			constraintAtom.add(Integer.valueOf(body1));
+			constraintAtom.add(Integer.valueOf(body2));
+		}
+		else {
+			constraintAtom.add(Integer.valueOf(body2));
+			constraintAtom.add(Integer.valueOf(body1));
+		}
+		
 		if(constraintSet.add(constraintAtom)) {
 			return true;
 		}
@@ -99,6 +106,10 @@ public class FastNegationThreeRuleGenerator {
 		return "p_" + head + " :- not p_" + bodyOne + ", not p_" + bodyTwo + ".\r\n";
 	}
 	
+	String getConstraintString(int bodyOne, int bodyTwo) {
+		return ":- not p_" + bodyOne + ", not p_" + bodyTwo + ".\r\n";
+	}
+	
 	public String getRules(){
 		StringBuffer sbRet=new StringBuffer();
 		
@@ -120,7 +131,7 @@ public class FastNegationThreeRuleGenerator {
 
 		while (constraintIt.hasNext()) {
 			ArrayList<Integer> constraint = constraintIt.next();
-			sbRet.append(getRuleString(constraint.get(0), constraint.get(0), constraint.get(1)));
+			sbRet.append(getConstraintString(constraint.get(0), constraint.get(1)));
 		}
 		
 		return sbRet.toString();
